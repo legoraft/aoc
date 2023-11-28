@@ -1,1 +1,4 @@
-pub mod twenty_three;
+pub mod days;
+
+#[cfg(test)]
+mod tests;
