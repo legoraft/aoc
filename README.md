@@ -4,4 +4,4 @@ These are my solutions for the advent of code, all written in rust. I'm still le
 
 ## Info
 
-Every year is labeled with words, so 2023, converted to '23, will be `twenty_three`. This is due to the fact that rust needs words in crates and this is the cleanest way to do so in my opinion.
+Every year is a separate rust project, and every day is it's own module. The problems will be solved in functions and there are be written test cases for the example problems. Enjoy my solutions!
