@@ -2,7 +2,7 @@ use super::*;
 use days::*;
 
 #[test]
-pub fn day_01() {
+fn day_01() {
     let calibration_value = "\
 1abc2
 pqr3stu8vwx
