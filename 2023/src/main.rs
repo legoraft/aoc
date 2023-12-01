@@ -1,3 +1,5 @@
+use aoc_2023::days;
+
 fn main() {
-    println!("Hello, world!");
+    days::day_01::main();
 }
