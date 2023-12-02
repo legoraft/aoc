@@ -2,7 +2,7 @@ pub fn main() {
     let calibration_value = include_str!("../inputs/day_01.txt");
     let answer: Vec<u32> = vec![part_one(calibration_value), part_two(calibration_value)];
 
-    println!("-- Day One --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1])
+    println!("-- Day One --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
 }
 
 pub fn part_one(calibration_value: &str) -> u32 {
