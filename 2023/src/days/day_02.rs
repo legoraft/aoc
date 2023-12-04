@@ -1,17 +1,8 @@
 pub fn main() {
     let games = include_str!("../inputs/day_02.txt");
-    let answer: Vec<_> = vec!["Hello", "World"];
-
-    let games = "\
-Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
-";
+    let answer: Vec<u32> = vec![part_one(games), part_two(games)];
 
     println!("-- Day Two --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
-    part_one(games);
 }
 
 struct Colors {
@@ -20,48 +11,65 @@ struct Colors {
     blue: u32,
 }
 
-pub fn part_one(games: &str) {
-    let games: Vec<Vec<&str>> = games.lines().map(|line| process_games(line)).collect();
+pub fn part_one(games: &str) -> u32 {
+    let games: Vec<&str> = games.lines().collect();
+    let mut score: u32 = 0;
 
     for game in games {
-        let cubes = process_cubes(game);
-        dbg!(cubes.blue);
-        dbg!(cubes.red);
-        dbg!(cubes.green);
+        let (cubes, id) = parse_games(game);
+
+        if cubes.red <= 12 && cubes.green <= 13 && cubes.blue <= 14 {
+            score += id;
+        }
     }
+    score
 }
 
-fn process_games(game: &str) -> Vec<&str> {
-    let game: Vec<&str> = game.split(":").collect();
-    let rounds: Vec<&str> = game.iter().nth(1).unwrap().split(";").collect();
-    rounds
+pub fn part_two(games: &str) -> u32 {
+    let games: Vec<&str> = games.lines().collect();
+    let mut score: u32 = 0;
+
+    for game in games {
+        let (cubes, _id) = parse_games(game);
+
+        let power = cubes.red * cubes.green * cubes.blue;
+        score += power;
+    }
+    score
 }
 
-fn process_cubes(game: Vec<&str>) -> Colors {
-    let mut red: u32 = 0;
-    let mut green: u32 = 0;
-    let mut blue: u32 = 0;
+fn parse_games(game: &str) -> (Colors, u32) {
+    let mut red: Vec<u32> = Vec::new();
+    let mut green: Vec<u32> = Vec::new();
+    let mut blue: Vec<u32> = Vec::new();
 
-    for round in game {
-        let cubes: Vec<&str> = round.split(",").collect();
+    let game: Vec<&str> = game.split(|c| c == ':' || c == ';').collect();
+    let id: u32 = game[0].replace("Game ", "").parse().unwrap();
 
-        for cube in cubes {
-            let num_color: Vec<&str> = cube.split(" ").collect();
-            let number: u32 = num_color[0].trim().parse().unwrap();
-            let color: &str = num_color[1].trim();
+    for round in &game [1..] {
+        let colors: Vec<Vec<&str>> = round.split(",").map(|color| color.split(" ").collect()).collect();
+
+        for cube in colors {
+            let amount: u32 = cube[1].parse().unwrap();
+            let color: &str = cube[2];
 
             match color {
-                "red" => red = number,
-                "green" => green = number,
-                "blue" => blue = number,
-                _ => eprintln!("That shouldn't be possible...")
+                "red" => red.push(amount),
+                "green" => green.push(amount),
+                "blue" => blue.push(amount),
+                _ => eprintln!("That isn't possible...")
             }
         }
     }
 
-    Colors {
-        red: red,
-        green: green,
-        blue: blue,
-    }
+    let red = *red.iter().max().unwrap();
+    let green = *green.iter().max().unwrap();
+    let blue = *blue.iter().max().unwrap();
+
+    ( Colors {
+        red,
+        green,
+        blue,
+    },
+    id )
 }

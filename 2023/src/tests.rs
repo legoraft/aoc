@@ -34,7 +34,8 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 ";
 
-//    assert_eq!(8, day_02::part_one(games))
+    assert_eq!(8, day_02::part_one(games));
+    assert_eq!(2286, day_02::part_two(games));
 }
 
 #[test]
@@ -47,5 +48,6 @@ Card   4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card   5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card   6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 ";
-    assert_eq!(13, day_04::part_one(cards))
+
+    assert_eq!(13, day_04::part_one(cards));
 }
