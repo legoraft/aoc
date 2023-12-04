@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 pub fn main() {
     let cards = include_str!("../inputs/day_04.txt");
     let answer: Vec<u32> = vec![part_one(cards), 0];
@@ -30,12 +28,8 @@ pub fn part_one(cards: &str) -> u32 {
     total_score
 }
 
-pub fn part_two(cards: &str) {
-    let mut cards: Vec<&str> = cards.lines().collect();
-
-    for card in &cards {
-        let (winning_numbers, my_numbers) = process_cards(card);
-    }
+pub fn part_two() {
+    println!("Dunno anymore")
 }
 
 fn process_cards(card: &str) -> (Vec<&str>, Vec<&str>) {
