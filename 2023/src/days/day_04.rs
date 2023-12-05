@@ -1,44 +1,68 @@
+use std::collections::HashSet;
+
 pub fn main() {
     let cards = include_str!("../inputs/day_04.txt");
-    let answer: Vec<u32> = vec![part_one(cards), 0];
+    let answer: Vec<u32> = vec![part_one(cards), part_two(cards)];
 
     println!("-- Day Four --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
 }
 
+struct Card {
+    winning_numbers: HashSet<i64>,
+    my_numbers: HashSet<i64>,
+}
+
+impl Card {
+    fn count(&self) -> usize {
+        let count = self.winning_numbers.intersection(&self.my_numbers).count();
+        count
+    }
+}
+
 pub fn part_one(cards: &str) -> u32 {
-    let cards: Vec<&str> = cards.lines().collect();
-    let mut total_score: u32 = 0;
+    let cards = parse(cards);
+    let mut answer: u32 = 0;
 
     for card in cards {
-        let mut score: u32 = 0;
-        let (winning_numbers, my_numbers) = process_cards(card);
-
-        for number in my_numbers {
-            let win = winning_numbers.contains(&number);
-
-            if win && score == 0 {
-                score += 1;
-            } else if win {
-                score += score;
-            }
+        let count = card.count();
+        if count > 0 {
+            answer += 2_u32.pow((count - 1) as u32);
+        } else {
+            answer += 0;
         }
-        total_score += score;
     }
-
-    total_score
+    answer
 }
 
-pub fn part_two() {
-    println!("Dunno anymore")
+pub fn part_two(cards: &str) -> u32 {
+    let cards = parse(cards);
+    let mut copies = vec![1; cards.len()];
+
+    for (index, card) in cards.iter().enumerate() {
+        let count = card.count();
+
+        for i in index + 1..index+1+count {
+            copies[i] += copies[index];
+        }
+    }
+    copies.iter().sum()
 }
 
-fn process_cards(card: &str) -> (Vec<&str>, Vec<&str>) {
-    let card = &card[10..];
-    let card: Vec<&str> = card.split("|").collect();
+fn parse(cards: &str) -> Vec<Card> {
+    let lines: Vec<&str> = cards.lines().collect();
+    let mut cards: Vec<Card> = Vec::new();
 
-    let winning_numbers: Vec<&str> = card[0].trim().split(" ").collect();
-    let mut my_numbers: Vec<&str> = card[1].trim().split(" ").collect();
-    my_numbers.retain(|value| *value != "");
+    for line in lines {
+        let (_, numbers) = line.split_once(": ").unwrap();
+        let (winning_string, my_string) = numbers.split_once(" | ").unwrap();
 
-    (winning_numbers, my_numbers)
+        let winning_numbers = winning_string.split_whitespace().map(|num| num.parse::<i64>().unwrap()).collect::<HashSet<_>>();
+        let my_numbers = my_string.split_whitespace().map(|num| num.parse::<i64>().unwrap()).collect::<HashSet<_>>();
+
+        cards.push(Card{
+            winning_numbers,
+            my_numbers,
+        })
+    }
+    cards
 }
