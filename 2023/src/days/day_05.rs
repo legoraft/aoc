@@ -1,6 +1,8 @@
 pub fn main() {
     let almanac = include_str!("../inputs/day_05.txt");
-    println!("{:?}", part_one(almanac));
+    let answer: Vec<i64> = vec![part_one(almanac), 0];
+
+    println!("-- Day Five --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
 }
 
 #[derive(Debug)]
@@ -15,13 +17,17 @@ pub fn part_one(almanac: &str) -> i64 {
     for mut seed in seeds {
         for block in &blocks {
             for map in &block.maps {
-                let mut range = map[1]..map[1] + map[2];
+                let source = map[1];
+                let destination = map[0];
+                let length = map[2];
+
+                let range = source..source + length;
+                let delta = destination - source;
 
                 if range.contains(&seed) {
-                    let index = &range.position(|s| s == seed).unwrap();
-                    seed = map[0] + *index as i64;
+                    seed = seed + delta;
                     break;
-                }
+                };
             }
         }
         positions.push(seed);
