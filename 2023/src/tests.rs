@@ -39,6 +39,23 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 }
 
 #[test]
+fn day_03() {
+    let schematic = "\
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..";
+
+    assert_eq!(4361, day_03::part_one(schematic));
+}
+
+#[test]
 fn day_04() {
     let cards = "\
 Card   1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
