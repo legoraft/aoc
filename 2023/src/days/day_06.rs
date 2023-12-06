@@ -1,8 +1,9 @@
+use crate::output_part;
+
 pub fn main() {
     let race = include_str!("../inputs/day_06.txt");
-    let answer: Vec<i64> = vec![part_one(race), part_two(race)];
 
-    println!("-- Day Six --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
+    println!("{}", output_part(|| part_one(race), || part_two(race), "06"))
 }
 
 pub fn part_one(race: &str) -> i64 {
