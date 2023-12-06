@@ -92,3 +92,13 @@ humidity-to-location map:
 
     assert_eq!(35, day_05::part_one(almanac));
 }
+
+#[test]
+fn day_06() {
+    let race = "\
+Time:      7  15   30
+Distance:  9  40  200
+";
+
+    assert_eq!(288, day_06::part_one(race))
+}

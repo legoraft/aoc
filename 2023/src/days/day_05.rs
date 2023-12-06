@@ -5,7 +5,6 @@ pub fn main() {
     println!("-- Day Five --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
 }
 
-#[derive(Debug)]
 struct Block {
     maps: Vec<Vec<i64>>,
 }

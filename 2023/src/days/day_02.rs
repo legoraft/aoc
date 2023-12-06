@@ -16,7 +16,7 @@ pub fn part_one(games: &str) -> u32 {
     let mut score: u32 = 0;
 
     for game in games {
-        let (cubes, id) = parse_games(game);
+        let (cubes, id) = parse(game);
 
         if cubes.red <= 12 && cubes.green <= 13 && cubes.blue <= 14 {
             score += id;
@@ -30,7 +30,7 @@ pub fn part_two(games: &str) -> u32 {
     let mut score: u32 = 0;
 
     for game in games {
-        let (cubes, _id) = parse_games(game);
+        let (cubes, _id) = parse(game);
 
         let power = cubes.red * cubes.green * cubes.blue;
         score += power;
@@ -38,7 +38,7 @@ pub fn part_two(games: &str) -> u32 {
     score
 }
 
-fn parse_games(game: &str) -> (Colors, u32) {
+fn parse(game: &str) -> (Colors, u32) {
     let mut red: Vec<u32> = Vec::new();
     let mut green: Vec<u32> = Vec::new();
     let mut blue: Vec<u32> = Vec::new();
