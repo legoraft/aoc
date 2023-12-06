@@ -1,10 +1,10 @@
 use std::collections::HashSet;
+use crate::output_part;
 
 pub fn main() {
     let cards = include_str!("../inputs/day_04.txt");
-    let answer: Vec<u32> = vec![part_one(cards), part_two(cards)];
 
-    println!("-- Day Four --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
+    println!("{}", output_part(|| part_one(cards), || part_two(cards), "04"))
 }
 
 struct Card {
@@ -19,9 +19,9 @@ impl Card {
     }
 }
 
-pub fn part_one(cards: &str) -> u32 {
+pub fn part_one(cards: &str) -> i64 {
     let cards = parse(cards);
-    let mut answer: u32 = 0;
+    let mut answer: i64 = 0;
 
     for card in cards {
         let count = card.count();
@@ -34,7 +34,7 @@ pub fn part_one(cards: &str) -> u32 {
     answer
 }
 
-pub fn part_two(cards: &str) -> u32 {
+pub fn part_two(cards: &str) -> i64 {
     let cards = parse(cards);
     let mut copies = vec![1; cards.len()];
 

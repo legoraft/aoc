@@ -1,11 +1,12 @@
+use crate::output_part;
+
 pub fn main() {
     let calibration_value = include_str!("../inputs/day_01.txt");
-    let answer: Vec<u32> = vec![part_one(calibration_value), part_two(calibration_value)];
 
-    println!("-- Day One --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
+    println!("{}", output_part(|| part_one(calibration_value), || part_two(calibration_value), "01"))
 }
 
-pub fn part_one(calibration_value: &str) -> u32 {
+pub fn part_one(calibration_value: &str) -> i64 {
     let lines: Vec<&str> = calibration_value.lines().collect();
     let mut values: Vec<Vec<u32>> = Vec::new();
 
@@ -18,7 +19,7 @@ pub fn part_one(calibration_value: &str) -> u32 {
     sum
 }
 
-pub fn part_two(calibration_value: &str) -> u32 {
+pub fn part_two(calibration_value: &str) -> i64 {
     let lines: Vec<&str> = calibration_value.lines().collect();
     let mut values: Vec<Vec<u32>> = Vec::new();
 
@@ -41,12 +42,12 @@ pub fn part_two(calibration_value: &str) -> u32 {
     sum
 }
 
-fn calculate_sum(values: Vec<Vec<u32>>) -> u32 {
-    let mut sum: u32 = 0;
+fn calculate_sum(values: Vec<Vec<u32>>) -> i64 {
+    let mut sum: i64 = 0;
 
     for numbers in values {
         let digit = numbers[0].to_string() + &*numbers[numbers.len() - 1].to_string();
-        sum += digit.parse::<u32>().unwrap();
+        sum += digit.parse::<i64>().unwrap();
     }
     sum
 }

@@ -1,8 +1,9 @@
+use crate::output_part;
+
 pub fn main() {
     let games = include_str!("../inputs/day_02.txt");
-    let answer: Vec<u32> = vec![part_one(games), part_two(games)];
 
-    println!("-- Day Two --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
+    println!("{}", output_part(|| part_one(games), || part_two(games), "02"))
 }
 
 struct Colors {
@@ -11,9 +12,9 @@ struct Colors {
     blue: u32,
 }
 
-pub fn part_one(games: &str) -> u32 {
+pub fn part_one(games: &str) -> i64 {
     let games: Vec<&str> = games.lines().collect();
-    let mut score: u32 = 0;
+    let mut score: i64 = 0;
 
     for game in games {
         let (cubes, id) = parse(game);
@@ -25,9 +26,9 @@ pub fn part_one(games: &str) -> u32 {
     score
 }
 
-pub fn part_two(games: &str) -> u32 {
+pub fn part_two(games: &str) -> i64 {
     let games: Vec<&str> = games.lines().collect();
-    let mut score: u32 = 0;
+    let mut score: i64 = 0;
 
     for game in games {
         let (cubes, _id) = parse(game);

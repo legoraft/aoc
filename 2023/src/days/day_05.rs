@@ -1,8 +1,9 @@
+use crate::output_part;
+
 pub fn main() {
     let almanac = include_str!("../inputs/day_05.txt");
-    let answer: Vec<i64> = vec![part_one(almanac), 0];
 
-    println!("-- Day Five --\nPart 1: {:?}\nPart 2: {:?}\n", answer[0], answer[1]);
+    println!("{}", output_part(|| part_one(almanac), || part_two(), "05"))
 }
 
 struct Block {
@@ -33,6 +34,10 @@ pub fn part_one(almanac: &str) -> i64 {
     }
     let minimum_position = positions.iter().min().unwrap();
     *minimum_position
+}
+
+pub fn part_two() -> i64 {
+    0
 }
 
 fn parse(almanac: &str) -> (Vec<Block>, Vec<i64>) {
