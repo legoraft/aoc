@@ -7,6 +7,7 @@ pub fn main() {
 
 pub fn part_one(race: &str) -> i64 {
     let (times, records) = parse(race);
+
     let times: Vec<i64> = times.iter().map(|num| num.parse().unwrap()).collect();
     let records: Vec<i64> = records.iter().map(|num| num.parse().unwrap()).collect();
 
