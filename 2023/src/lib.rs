@@ -15,7 +15,7 @@ fn output_part(part_one: impl FnOnce() -> i64, part_two: impl FnOnce() -> i64, d
     let output = format!("\
 ---- 2023, Day {day} ----
 {part_one}
-{part_two}");
+{part_two}\n");
 
     output
 }
