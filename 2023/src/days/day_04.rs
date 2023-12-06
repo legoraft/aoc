@@ -26,7 +26,7 @@ pub fn part_one(cards: &str) -> i64 {
     for card in cards {
         let count = card.count();
         if count > 0 {
-            answer += 2_u32.pow((count - 1) as u32);
+            answer += 2_i64.pow((count - 1) as u32);
         } else {
             answer += 0;
         }

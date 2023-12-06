@@ -7,9 +7,9 @@ pub fn main() {
 }
 
 struct Colors {
-    red: u32,
-    green: u32,
-    blue: u32,
+    red: i64,
+    green: i64,
+    blue: i64,
 }
 
 pub fn part_one(games: &str) -> i64 {
@@ -39,19 +39,19 @@ pub fn part_two(games: &str) -> i64 {
     score
 }
 
-fn parse(game: &str) -> (Colors, u32) {
-    let mut red: Vec<u32> = Vec::new();
-    let mut green: Vec<u32> = Vec::new();
-    let mut blue: Vec<u32> = Vec::new();
+fn parse(game: &str) -> (Colors, i64) {
+    let mut red: Vec<i64> = Vec::new();
+    let mut green: Vec<i64> = Vec::new();
+    let mut blue: Vec<i64> = Vec::new();
 
     let game: Vec<&str> = game.split(|c| c == ':' || c == ';').collect();
-    let id: u32 = game[0].replace("Game ", "").parse().unwrap();
+    let id: i64 = game[0].replace("Game ", "").parse().unwrap();
 
     for round in &game [1..] {
         let colors: Vec<Vec<&str>> = round.split(",").map(|color| color.split(" ").collect()).collect();
 
         for cube in colors {
-            let amount: u32 = cube[1].parse().unwrap();
+            let amount: i64 = cube[1].parse().unwrap();
             let color: &str = cube[2];
 
             match color {
