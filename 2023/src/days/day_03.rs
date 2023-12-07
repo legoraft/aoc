@@ -13,7 +13,7 @@ struct Symbol {
 }
 
 pub fn part_one(schematic: &str) -> i64 {
-    parse(schematic);
+    let symbols = parse(schematic);
 
     0
 }
@@ -22,7 +22,7 @@ pub fn part_two(schematic: &str) -> i64 {
     0
 }
 
-fn parse(schematic: &str) {
+fn parse(schematic: &str) -> Vec<Symbol> {
     let rows: Vec<&str> = schematic.lines().collect();
     let symbols = vec!["*", "#", "$", "+"];
     let mut locations: Vec<Symbol> = Vec::new();
@@ -49,4 +49,6 @@ fn parse(schematic: &str) {
             }
         }
     }
+
+    locations
 }

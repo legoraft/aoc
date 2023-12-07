@@ -58,7 +58,7 @@ fn parse(games: &str) -> Vec<Game> {
 fn calculate_strength(cards: &String) -> i64 {
     let cards: Vec<char> = cards.chars().collect();
     let mut counts: Vec<i64> = Vec::new();
-    let mut strength: i64;
+    let strength: i64;
 
     for card in &cards {
         let count = cards.iter().filter(|char| *char == card).count();
