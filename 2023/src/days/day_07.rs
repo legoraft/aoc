@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-use std::thread::panicking;
 use crate::output_part;
 
 pub fn main() {
@@ -9,56 +7,14 @@ pub fn main() {
 }
 
 #[derive(Debug)]
-struct Hand {
+struct Game {
+    cards: String,
     bid: i64,
-    cards: HashSet<Card>,
-    values: Vec<i64>,
-    rank: i64,
-}
-
-#[derive(Debug, Eq, PartialEq, Hash)]
-struct Card {
-    id: char,
-    amount: i64,
+    strength: i64,
 }
 
 pub fn part_one(games: &str) -> i64 {
-    let games: Vec<Hand> = parse(games);
-    for game in games {
-        // combos are numbered as follows:
-        // 1 = high card
-        // 2 = one pair
-        // 3 = two pair
-        // 4 = three of a kind
-        // 5 = full house
-        // 6 = four of a kind
-        // 7 = five of a kind
-        let mut combo = 0;
-        let mut nothing = 0;
-        let mut pairs = 0;
-        let mut threes = 0;
-
-        for card in &game.cards {
-            match card.amount {
-                1 => nothing += 1,
-                2 => pairs += 1,
-                3 => threes += 1,
-                4 => combo = 6,
-                5 => combo = 7,
-                _ => println!("Prob something wrong...")
-            }
-        }
-
-        if pairs == 1 && threes == 1 {
-            combo = 5;
-        } else if pairs == 2 {
-            combo = 3;
-        } else if nothing == game.cards.len() + 1 {
-            combo = 1;
-        } else {
-            combo = threes * 4 + pairs * 2;
-        }
-    }
+    let mut games = parse(games);
 
     0
 }
@@ -67,43 +23,33 @@ pub fn part_two(games: &str) -> i64 {
     0
 }
 
-fn parse(games: &str) -> Vec<Hand> {
-    let games: Vec<&str> = games.lines().collect();
-    let mut rounds: Vec<Hand> = Vec::new();
+fn parse(games: &str) -> Vec<Game> {
+    let lines: Vec<&str> = games.lines().collect();
+    let mut games: Vec<Game> = Vec::new();
 
-    for game in games {
-        let (hand, bid) = game.split_once(" ").unwrap();
-        let mut cards: Vec<Card> = Vec::new();
+    for line in lines {
+        let (cards, bid) = line.split_once(" ").unwrap();
+        let strength = calculate_strength(cards);
 
-        let bid: i64 = bid.parse().unwrap();
-        let hand: Vec<char> = hand.chars().collect();
-
-        let values: Vec<String> = hand.iter().map(|char| char.to_string()).collect();
-        let values: Vec<String> = values.iter().map(|card| card
-            .replace("A", "14")
-            .replace("K", "13")
-            .replace("Q", "12")
-            .replace("J", "11")
-            .replace("T", "10")
-        ).collect();
-
-        for card in &hand {
-            let card_count = hand.iter().filter(|count| *count == card).count();
-            cards.push(Card {
-                id: *card,
-                amount: card_count as i64,
-            });
-        }
-
-        let cards: HashSet<Card> = cards.drain(..).collect();
-
-        rounds.push(Hand{
-            bid,
-            cards,
-            values: values.iter().map(|s| s.parse::<i64>().unwrap()).collect(),
-            rank: 1,
+        games.push(Game{
+            cards: cards.to_string(),
+            bid: bid.parse::<i64>().unwrap(),
+            strength,
         })
     }
+    games
+}
 
-    rounds
+fn calculate_strength(cards: &str) -> i64 {
+    let cards: Vec<char> = cards.chars().collect();
+    let mut counts: Vec<i64> = Vec::new();
+
+    for card in &cards {
+        let count = cards.iter().filter(|char| *char == card).count();
+        counts.push(count as i64);
+    }
+
+
+
+    0
 }
