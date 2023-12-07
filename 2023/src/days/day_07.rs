@@ -6,7 +6,7 @@ pub fn main() {
     println!("{}", output_part(|| part_one(games), || part_two(games), "07"))
 }
 
-#[derive(Debug)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
 struct Game {
     cards: String,
     bid: i64,
@@ -14,10 +14,17 @@ struct Game {
 }
 
 pub fn part_one(games: &str) -> i64 {
-    let games = parse(games);
-    dbg!(games);
+    let mut games = parse(games);
+    let mut total_winnings: i64 = 0;
+    games.sort_by(|a, b| b.cards.cmp(&a.cards));
+    games.sort_by(|a, b| b.strength.cmp(&a.strength));
 
-    0
+    for (index, game) in games.iter().enumerate() {
+        let rank: i64 = (games.len() - index) as i64;
+        total_winnings += rank * game.bid;
+    }
+
+    total_winnings
 }
 
 pub fn part_two(_games: &str) -> i64 {
@@ -30,10 +37,17 @@ fn parse(games: &str) -> Vec<Game> {
 
     for line in lines {
         let (cards, bid) = line.split_once(" ").unwrap();
-        let strength = calculate_strength(cards);
+        let cards = cards
+            .replace("A", "E")
+            .replace("K", "D")
+            .replace("Q", "C")
+            .replace("J", "B")
+            .replace("T", "A");
+
+        let strength = calculate_strength(&cards);
 
         games.push(Game{
-            cards: cards.to_string(),
+            cards,
             bid: bid.parse::<i64>().unwrap(),
             strength,
         })
@@ -41,10 +55,10 @@ fn parse(games: &str) -> Vec<Game> {
     games
 }
 
-fn calculate_strength(cards: &str) -> i64 {
+fn calculate_strength(cards: &String) -> i64 {
     let cards: Vec<char> = cards.chars().collect();
     let mut counts: Vec<i64> = Vec::new();
-    let mut strength: i64 = 0;
+    let mut strength: i64;
 
     for card in &cards {
         let count = cards.iter().filter(|char| *char == card).count();
@@ -57,9 +71,10 @@ fn calculate_strength(cards: &str) -> i64 {
         strength = counts_max + 1;
     } else if counts_max == 3 {
         if counts.contains(&2) {
-            strength = counts_max + 1
+            strength = counts_max + 1;
+        } else {
+            strength = counts_max
         }
-        strength = counts_max
     } else if counts_max == 2 {
         if counts.iter().filter(|card| *card == &2_i64).count() > 2 {
             strength = counts_max;
