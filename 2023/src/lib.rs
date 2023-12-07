@@ -9,8 +9,8 @@ fn output_part(part_one: impl FnOnce() -> i64, part_two: impl FnOnce() -> i64, d
     let (part_one_result, part_one_duration) = timed(part_one);
     let (part_two_result, part_two_duration) = timed(part_two);
 
-    let part_one = format_part(part_one_result, part_one_duration);
-    let part_two = format_part(part_two_result, part_two_duration);
+    let part_one = format_part(part_one_result, part_one_duration, 1);
+    let part_two = format_part(part_two_result, part_two_duration, 2);
 
     let output = format!("\
 ---- 2023, Day {day} ----
@@ -20,9 +20,9 @@ fn output_part(part_one: impl FnOnce() -> i64, part_two: impl FnOnce() -> i64, d
     output
 }
 
-fn format_part(answer: i64, duration: String) -> String {
+fn format_part(answer: i64, duration: String, part_number: i64) -> String {
     let output_string = format!("\
-{duration}s Part 1: {:?}", answer);
+{duration}s Part {part_number}: {:?}", answer);
 
     output_string
 }
