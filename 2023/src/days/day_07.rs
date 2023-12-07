@@ -14,12 +14,13 @@ struct Game {
 }
 
 pub fn part_one(games: &str) -> i64 {
-    let mut games = parse(games);
+    let games = parse(games);
+    dbg!(games);
 
     0
 }
 
-pub fn part_two(games: &str) -> i64 {
+pub fn part_two(_games: &str) -> i64 {
     0
 }
 
@@ -43,13 +44,31 @@ fn parse(games: &str) -> Vec<Game> {
 fn calculate_strength(cards: &str) -> i64 {
     let cards: Vec<char> = cards.chars().collect();
     let mut counts: Vec<i64> = Vec::new();
+    let mut strength: i64 = 0;
 
     for card in &cards {
         let count = cards.iter().filter(|char| *char == card).count();
         counts.push(count as i64);
     }
 
+    let counts_max: i64 = *counts.iter().max().unwrap();
 
+    if counts_max > 3 {
+        strength = counts_max + 1;
+    } else if counts_max == 3 {
+        if counts.contains(&2) {
+            strength = counts_max + 1
+        }
+        strength = counts_max
+    } else if counts_max == 2 {
+        if counts.iter().filter(|card| *card == &2_i64).count() > 2 {
+            strength = counts_max;
+        } else {
+            strength = counts_max - 1
+        }
+    } else {
+        strength = 0
+    }
 
-    0
+    strength
 }
