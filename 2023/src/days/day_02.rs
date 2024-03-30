@@ -3,7 +3,7 @@ use crate::output_part;
 pub fn main() {
     let games = include_str!("../inputs/day_02.txt");
 
-    println!("{}", output_part(|| part_one(games), || part_two(games), "02"))
+    println!("{}", output_part(|| part_one(games), || part_two(games), "02"));
 }
 
 struct Colors {
