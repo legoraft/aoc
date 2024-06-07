@@ -11,12 +11,14 @@ treb7uchet";
 fn part_one(input: &str) -> i64 {
     let lines = parse(input);
 
+    let mut answer: i64 = 0;
+
     for line in lines {
-        let nums: Vec<u32> = line.chars()
+        let nums: Vec<char> = line.chars()
             .filter(|c| c.is_digit(10))
-            .map(|c| c.to_digit(10).expect("Can't parse character!"))
             .collect();
         
+        let (first, last) = (nums[0], nums[nums.len()]);
 
     }
 
