@@ -2,8 +2,16 @@ fn main() {
     println!("Hello, first day!");
 }
 
-fn part_one(file: &str) {
-    
+fn part_one(lines: &str) {
+    for line in lines {
+        
+    }
+}
+
+fn parse(file: &str) -> Vec<&str> {
+    let lines: Vec<&str> = file.lines().collect();
+
+    lines
 }
 
 #[cfg(test)]
