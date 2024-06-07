@@ -1,7 +1,7 @@
 # Advent of code
 
-These are my solutions for the advent of code, all written in rust. I'm still learning rust, so the solutions won't be as elegant or well-designed as some other people will do.
+I am trying to learn rust by doing some advent of code projects, which challenge you to solve simple and complex problems in any programming language. Check advent of code out [here](https://adventofcode.com).
 
 ## Info
 
-Every year is a separate rust project, and every day is it's own module. The problems will be solved in functions and there are be written test cases for the example problems. Enjoy my solutions!
+I create a new rust project for every day and each year is organized in a subfolder. All my thought processes and my solution explanations are also written at at [legoraft.github.io/aoc](https://legoraft.github.io/aoc).
