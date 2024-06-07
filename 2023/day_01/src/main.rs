@@ -18,7 +18,7 @@ fn part_one(input: &str) -> i64 {
             .filter(|c| c.is_digit(10))
             .collect();
         
-        let number_string: String = [nums[0], nums[nums.len()]].iter().collect();
+        let number_string: String = [nums[0], nums[nums.len() - 1]].iter().collect();
         let number: i64 = number_string.parse::<i64>().expect("Can't parse string!");
 
         answer += number;
