@@ -24,7 +24,7 @@ jobs:
           echo `pwd`/mdbook >> $GITHUB_PATH
       - name: Build Book
         run: |
-          cd book
+          cd docs
           mdbook build
       - name: Setup Pages
         uses: actions/configure-pages@v4
