@@ -198,7 +198,7 @@ fn part_one(input: &str) -> i64 {
 
 This does work, I've replaced every second character of the numbers with a number, so the first and last characters never interfere. The first and last are the only ones that would overlap, so this is a simple way to do it. Another way would be to convert `one` to `one1one`, which leaves the full word at the front and back intact. Now we've solved both parts for day 1, so on to day 2!
 
-The files for this day are available [here](https://github.com/legoraft/aoc/blob/main/2023/day_01/src/main.rs).If you want to test the full solution, with the test input, check this out:
+The files for this day are available [here](https://github.com/legoraft/aoc/blob/main/2023/day_01).If you want to test the full solution, with the test input, check this out:
 
 ```rust
 fn main() {

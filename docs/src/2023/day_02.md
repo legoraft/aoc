@@ -151,8 +151,9 @@ for game in games {
 #             .split_once(" ")
 #             .expect("Can't split draw!");
 # 
+#         let count = count.parse::<i64>().expect("Can't parse count!");
+# 
     // snip
-        let count = count.parse::<i64>().expect("Can't parse count!");
 
         match color {
             "red" =>  red.push(count),
@@ -174,3 +175,10 @@ for game in games {
 answer
 ```
 
+I've snipped out the parts that are the same as the part one solution, but you can view them in the code preview. Now let's take a look at what's happening here. First, we start by creating a few vectors which contain all the values which belong to a color. After this, we match the color and push the count to the correct vector if we match the correct color. Finally, we get the largest value out of these vectors (which is the minimum value to make a game possible) and multiply these.
+
+To solve part two, we return the answer so we can view our output. The full project for this day is available [here](https://github.com/legoraft/aoc/blob/main/2023/day_02). If you want to try the full solution with a test input, take a look here:
+
+```rust
+
+```
