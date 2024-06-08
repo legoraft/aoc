@@ -9,7 +9,18 @@ For the first part, we need to find a calibration value within a line of text, g
 I started by just creating a simple test to check if the example input equals the example answer. With this I can check if my code is correct for the example, so I can use it on my true input. Tests are really easy to write in rust, so my test looks like this:
 
 ```rust
-{{#include ../../../2023/day_01/src/main.rs:69:80}}
+#[test]
+fn test_part_one() {
+    let input_file: &str = "\
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet";
+
+    let answer: i64 = 142;
+
+    assert_eq!(answer, part_one(input_file));
+}
 ```
 
 This will check if the answer is the same as the output of part one. These tests do have to be wrapped in a `mod tests` which is also has a `#[cfg(tests)]` value associated with it.
@@ -186,3 +197,9 @@ fn part_one(input: &str) -> i64 {
 ```
 
 This does work, I've replaced every second character of the numbers with a number, so the first and last characters never interfere. The first and last are the only ones that would overlap, so this is a simple way to do it. Another way would be to convert `one` to `one1one`, which leaves the full word at the front and back intact. Now we've solved both parts for day 1, so on to day 2!
+
+If you want to test the full solution, with the test input, check this out.
+
+```rust
+
+```
