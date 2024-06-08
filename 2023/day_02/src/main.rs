@@ -1,19 +1,17 @@
 fn main() {
-    let input_file: &str = "\
-Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
+    let input_file = include_str!("../../inputs/day_01.txt");
 
-    println!("{:?}", parse(input_file));
+    let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
+
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
 fn part_one(input: &str) -> i64 {
     let games: Vec<&str> = parse(input);
-    let mut answer = 0;
+    let mut answer: i64 = 0;
 
-    for (id, game ) in games.iter().enumerate() {
+    'outer: for (id, game ) in games.iter().enumerate() {
         let id = id + 1;
 
         let draws: Vec<&str> = game
@@ -33,14 +31,18 @@ fn part_one(input: &str) -> i64 {
                 _ => panic!("That shouldn't happen..."),
             };
 
-            if !possible { break; }
+            if !possible { continue 'outer; }
         }
 
-        answer += id;
+        answer += id as i64;
 
     }
 
-    8
+    answer
+}
+
+fn part_two(input: &str) -> i64 {
+    10
 }
 
 fn parse(file: &str) -> Vec<&str> {
