@@ -202,7 +202,14 @@ If you want to test the full solution, with the test input, check this out.
 
 ```rust
 fn main() {
-    let input_file = include_str!("../../inputs/day_01.txt");
+    let input_file = "\
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
 
     let answer_one = part_one(input_file);
     let answer_two = part_two(input_file);
