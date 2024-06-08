@@ -200,4 +200,6 @@ This does work, I've replaced every second character of the numbers with a numbe
 
 If you want to test the full solution, with the test input, check this out.
 
-{{#playground ../../../2023/day_01/src/main.rs}}
+```rust
+{{#rustdoc_include ../../../2023/day_01/src/main.rs:1:8}}
+```
