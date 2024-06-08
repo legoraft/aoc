@@ -91,4 +91,22 @@ We now know if a draw was possible, but we still need to skip the round if the v
 }
 ```
 
-We use a label to specify which loop has to continue, which in this case is the outer loop. 
+We use a label to specify which loop has to continue, which in this case is the outer loop. If we hadn't used this, the inner for loop would just continue at the next draw, making it so every id is added to our answer. If all draws in a game are possible, we add the id to the answer and the next game is checked. At the end of the for loop we also return the answer, giving us access to it in the `main()` function.
+
+Speaking of the `main()` function, it is built up in the same way as day one:
+
+```rust,noplayground
+fn main() {
+    let input_file = include_str!("../../inputs/day_02.txt");
+
+    let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
+
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
+}
+```
+
+We can now use this to print out the answer of part one, but let's add the part two function too!
+
+## Part two
+
