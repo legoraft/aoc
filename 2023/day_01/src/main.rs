@@ -1,3 +1,5 @@
+use std::mem::replace;
+
 fn main() {
     let input_file = include_str!("../../inputs/day_01.txt");
 
@@ -29,7 +31,31 @@ fn part_one(input: &str) -> i64 {
 fn part_two(input: &str) -> i64 {
     let lines = parse(input);
 
-    281
+    let mut answer: i64 = 0;
+
+    for line in lines {
+        let line = line
+            .replace("one", "1")
+            .replace("two", "2")
+            .replace("three", "3")
+            .replace("four", "4")
+            .replace("five", "5")
+            .replace("six", "6")
+            .replace("seven", "7")
+            .replace("eight", "8")
+            .replace("nine", "9");
+
+        let nums: Vec<char> = line.chars()
+            .filter(|c| c.is_digit(10))
+            .collect();
+        
+        let number_string: String = [nums[0], nums[nums.len() - 1]].iter().collect();
+        let number: i64 = number_string.parse::<i64>().expect("Can't parse string!");
+
+        answer += number;
+    }
+
+    answer
 }
 
 fn parse(file: &str) -> Vec<&str> {
