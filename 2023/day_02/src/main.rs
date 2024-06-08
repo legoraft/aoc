@@ -37,7 +37,6 @@ fn part_one(input: &str) -> i64 {
         }
 
         answer += id as i64;
-
     }
 
     answer
@@ -79,7 +78,6 @@ fn part_two(input: &str) -> i64 {
         let power: i64 = red * green * blue;
 
         answer += power;
-
     }
 
     answer
