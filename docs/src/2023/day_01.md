@@ -8,7 +8,7 @@ For the first part, we need to find a calibration value within a line of text, g
 
 I started by just creating a simple test to check if the example input equals the example answer. With this I can check if my code is correct for the example, so I can use it on my true input. Tests are really easy to write in rust, so my test looks like this:
 
-```rust
+```rust,ignore
 #[test]
 fn test_part_one() {
     let input_file: &str = "\
@@ -27,7 +27,7 @@ This will check if the answer is the same as the output of part one. These tests
 
 Next, I added a simple parser that splits the input into lines, so I can iterate over every line within my `part_one()` function. To get all the lines from some text, you can just use the `text.lines()` function and store this in a vec as follows.
 
-```rust
+```rust,ignore
 fn parse(file: &str) -> Vec<&str> {
     let lines: Vec<&str> = file.lines().collect();
 
@@ -37,7 +37,7 @@ fn parse(file: &str) -> Vec<&str> {
 
 Now let's start with solving the problem!
 
-```rust
+```rust,ignore
 fn part_one(input: &str) -> i64 {
     let lines = parse(input);
 
@@ -64,7 +64,7 @@ Next up, we create a `String` from the characters. We need the first and last ch
 
 At last, we parse the string, which always should be possible. We `panic!` if it isn't possible, because that means that something went wrong. The final number is added to the answer and this is repeated for every line in the file. By returning the number, we can just use `println!` to print the number and get our answer. This is exactly what we do in the main function.
 
-```rust
+```rust,ignore
 fn main() {
     let input_file = include_str!("../../inputs/day_01.txt");
 
@@ -82,7 +82,7 @@ Part two throws us a bit for a loop, because it appears that there are also numb
 
 Let's start by writing another test and making sure all the functions are correct. Our new test uses a different test input, so it looks a bit different.
 
-```rust
+```rust,ignore
 #[test]
 fn test_part_two() {
     let input_file: &str = "\
@@ -102,7 +102,7 @@ zoneight234
 
 We also have created a `part_two()` function, which returns an `i64` and added the part two output to our `main()` function. This looks like this.
 
-```rust
+```rust,ignore
 fn main() {
     let input_file = include_str!("../../inputs/day_01.txt");
 
@@ -123,7 +123,7 @@ We still use the same input file, but the output now also outputs the second par
 
 Luckily, we can use most of the code from part one. I know that repetition is bad practice, but I want to have every part work independently and be clear to read for every function. So I've copied all the code over from the first part.
 
-```rust
+```rust,ignore
 fn part_one(input: &str) -> i64 {
     let lines = parse(input);
 
@@ -146,7 +146,7 @@ fn part_one(input: &str) -> i64 {
 
 This function works exactly like the one in the first part, but we need to make some modifications to the `line` variable before we parse it. This is quite easy, as we can just replace any occurence of a string in a line with another string with `replace()`.
 
-```rust
+```rust,ignore
 fn part_one(input: &str) -> i64 {
     // snip
 
@@ -173,7 +173,7 @@ We just replace all of the instances of a written out number with a number and t
 
 It seems that our issue lies in the parsing of the text. In some lines the letters of the numbers overlap, like in `xtwone3four`. Because we convert one first, this means we get `14` instead of `24`. So, we should leave certain parts of the text intact. With a new, updated function it does work!
 
-```rust
+```rust,ignore
 fn part_one(input: &str) -> i64 {
     // snip
 
@@ -200,6 +200,4 @@ This does work, I've replaced every second character of the numbers with a numbe
 
 If you want to test the full solution, with the test input, check this out.
 
-```rust
 {{#playground ../../../2023/day_01/src/main.rs}}
-```
