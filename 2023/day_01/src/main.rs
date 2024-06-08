@@ -2,8 +2,9 @@ fn main() {
     let input_file = include_str!("../../inputs/day_01.txt");
 
     let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
 
-    println!("Part one: {}\n", answer_one);
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
 fn part_one(input: &str) -> i64 {
@@ -23,6 +24,12 @@ fn part_one(input: &str) -> i64 {
     }
 
     answer
+}
+
+fn part_two(input: &str) -> i64 {
+    let lines = parse(input);
+
+    281
 }
 
 fn parse(file: &str) -> Vec<&str> {
@@ -46,5 +53,21 @@ treb7uchet";
         let answer: i64 = 142;
 
         assert_eq!(answer, part_one(input_file));
+    }
+
+    #[test]
+    fn test_part_two() {
+        let input_file: &str = "\
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
+
+        let answer: i64 = 281;
+
+        assert_eq!(answer, part_two(input_file));
     }
 }
