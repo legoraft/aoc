@@ -9,18 +9,7 @@ For the first part, we need to find a calibration value within a line of text, g
 I started by just creating a simple test to check if the example input equals the example answer. With this I can check if my code is correct for the example, so I can use it on my true input. Tests are really easy to write in rust, so my test looks like this:
 
 ```rust
-#[test]
-fn test_part_one() {
-    let input_file: &str = "\
-1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet";
-
-    let answer: i64 = 142;
-
-    assert_eq!(answer, part_one(input_file));
-}
+{{#include ../../../2023/day_01/src/main.rs}}
 ```
 
 This will check if the answer is the same as the output of part one. These tests do have to be wrapped in a `mod tests` which is also has a `#[cfg(tests)]` value associated with it.
