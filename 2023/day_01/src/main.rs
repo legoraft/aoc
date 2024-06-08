@@ -1,5 +1,3 @@
-use std::mem::replace;
-
 fn main() {
     let input_file = include_str!("../../inputs/day_01.txt");
 
