@@ -1,5 +1,5 @@
 fn main() {
-    let input_file = include_str!("../../inputs/day_01.txt");
+    let input_file = include_str!("../../inputs/day_02.txt");
 
     let answer_one = part_one(input_file);
     let answer_two = part_two(input_file);
@@ -24,10 +24,12 @@ fn part_one(input: &str) -> i64 {
                 .split_once(" ")
                 .expect("Can't split draw!");
 
+            let count = count.parse::<i64>().expect("Can't parse count!");
+
             let possible = match color {
-                "red" =>  count.parse::<i64>().expect("Can't parse count!") <= 12,
-                "green" =>  count.parse::<i64>().expect("Can't parse count!") <= 13,
-                "blue" =>  count.parse::<i64>().expect("Can't parse count!") <= 14,
+                "red" =>  count <= 12,
+                "green" =>  count <= 13,
+                "blue" =>  count <= 14,
                 _ => panic!("That shouldn't happen..."),
             };
 
@@ -42,7 +44,41 @@ fn part_one(input: &str) -> i64 {
 }
 
 fn part_two(input: &str) -> i64 {
-    10
+    let games: Vec<&str> = parse(input);
+    let mut answer: i64 = 0;
+
+    for (id, game ) in games.iter().enumerate() {
+        let id = id + 1;
+
+        let mut red: Vec<i64> = Vec::new();
+        let mut green: Vec<i64> = Vec::new();
+        let mut blue: Vec<i64> = Vec::new();
+
+        let draws: Vec<&str> = game
+            .split([',', ';'])
+            .map(|s| s.trim())
+            .collect();
+
+        for draw in draws {
+            let (count, color) = draw
+                .split_once(" ")
+                .expect("Can't split draw!");
+
+            let count = count.parse::<i64>().expect("Can't parse count!");
+
+            match color {
+                "red" =>  red.push(count),
+                "green" =>  green.push(count),
+                "blue" =>  blue.push(count),
+                _ => panic!("That shouldn't happen..."),
+            };
+        }
+
+        answer += id as i64;
+
+    }
+
+    answer
 }
 
 fn parse(file: &str) -> Vec<&str> {
