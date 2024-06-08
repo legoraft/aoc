@@ -265,10 +265,10 @@ zoneight234
 # 
 #     answer
 # }
-
-fn parse(file: &str) -> Vec<&str> {
-    let lines: Vec<&str> = file.lines().collect();
-
-    lines
-}
+# 
+# fn parse(file: &str) -> Vec<&str> {
+#     let lines: Vec<&str> = file.lines().collect();
+# 
+#     lines
+# }
 ```
