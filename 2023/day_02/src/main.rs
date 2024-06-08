@@ -11,6 +11,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
 fn part_one(input: &str) -> i64 {
     let games: Vec<&str> = parse(input);
+    let mut answer = 0;
 
     for (id, game ) in games.iter().enumerate() {
         let id = id + 1;
@@ -31,7 +32,12 @@ fn part_one(input: &str) -> i64 {
                 "blue" =>  count.parse::<i64>().expect("Can't parse count!") <= 14,
                 _ => panic!("That shouldn't happen..."),
             };
+
+            if !possible { break; }
         }
+
+        answer += id;
+
     }
 
     8
