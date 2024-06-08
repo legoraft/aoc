@@ -119,4 +119,54 @@ fn part_two(input: &str) -> i64 {
 }
 ```
 
-We still use the same input file, but the output now also outputs the second part. I'm currently just returning the answer so my test passes. Now let's start solving the problem.
+We still use the same input file, but the output now also outputs the second part. I'm currently just returning the answer so my test passes. Now let's start solving the problem. 
+
+Luckily, we can use most of the code from part one. I know that repetition is bad practice, but I want to have every part work independently and be clear to read for every function. So I've copied all the code over from the first part.
+
+```rust
+fn part_one(input: &str) -> i64 {
+    let lines = parse(input);
+
+    let mut answer: i64 = 0;
+
+    for line in lines {
+        let nums: Vec<char> = line.chars()
+            .filter(|c| c.is_digit(10))
+            .collect();
+        
+        let number_string: String = [nums[0], nums[nums.len() - 1]].iter().collect();
+        let number: i64 = number_string.parse::<i64>().expect("Can't parse string!");
+
+        answer += number;
+    }
+
+    answer
+}
+```
+
+This function works exactly like the one in the first part, but we need to make some modifications to the `line` variable before we parse it. This is quite easy, as we can just replace any occurence of a string in a line with another string with `replace()`.
+
+```rust
+fn part_one(input: &str) -> i64 {
+    // snip
+
+    for line in lines {
+        let line = line
+            .replace("one", "1")
+            .replace("two", "2")
+            .replace("three", "3")
+            .replace("four", "4")
+            .replace("five", "5")
+            .replace("six", "6")
+            .replace("seven", "7")
+            .replace("eight", "8")
+            .replace("nine", "9");
+
+        //snip
+    }
+
+    answer
+}
+```
+
+We just replace all of the instances of a written out number with a number and the parsing works! Now let's run `cargo test`. Aaaaand the test fails. With this function, we get `211` as answer, but we need `281`. Let's backtrack to the input.
