@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       working-directory: ./2023
-      run: for dir in .; do (cd "$dir" && cargo build --verbose); done
+      run: for dir in ./*; do (cd "$dir" && cargo build --verbose); done
     - name: Run tests
       working-directory: ./2023
-      run: for dir in .; do (cd "$dir" && cargo test --verbose); done
+      run: for dir in ./*; do (cd "$dir" && cargo test --verbose); done
