@@ -170,3 +170,30 @@ fn part_one(input: &str) -> i64 {
 ```
 
 We just replace all of the instances of a written out number with a number and the parsing works! Now let's run `cargo test`. Aaaaand the test fails. With this function, we get `211` as answer, but we need `281`. Let's backtrack to the input.
+
+It seems that our issue lies in the parsing of the text. In some lines the letters of the numbers overlap, like in `xtwone3four`. Because we convert one first, this means we get `14` instead of `24`. So, we should leave certain parts of the text intact. With a new, updated function it does work!
+
+```rust
+fn part_one(input: &str) -> i64 {
+    // snip
+
+    for line in lines {
+        let line = line
+            .replace("one", "o1e")
+            .replace("two", "t2o")
+            .replace("three", "t3ree")
+            .replace("four", "f4ur")
+            .replace("five", "f5ve")
+            .replace("six", "s6x")
+            .replace("seven", "s7ven")
+            .replace("eight", "e8ght")
+            .replace("nine", "n9ne");
+
+        //snip
+    }
+
+    answer
+}
+```
+
+This does work, I've replaced every second character of the numbers with a number, so the first and last characters never interfere. The first and last are the only ones that would overlap, so this is a simple way to do it. Another way would be to convert `one` to `one1one`, which leaves the full word at the front and back intact. Now we've solved both parts for day 1, so on to day 2!

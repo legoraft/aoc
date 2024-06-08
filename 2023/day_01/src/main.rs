@@ -35,15 +35,15 @@ fn part_two(input: &str) -> i64 {
 
     for line in lines {
         let line = line
-            .replace("one", "1")
-            .replace("two", "2")
-            .replace("three", "3")
-            .replace("four", "4")
-            .replace("five", "5")
-            .replace("six", "6")
-            .replace("seven", "7")
-            .replace("eight", "8")
-            .replace("nine", "9");
+            .replace("one", "o1e")
+            .replace("two", "t2o")
+            .replace("three", "t3ree")
+            .replace("four", "f4ur")
+            .replace("five", "f5ve")
+            .replace("six", "s6x")
+            .replace("seven", "s7ven")
+            .replace("eight", "e8ght")
+            .replace("nine", "n9ne");
 
         let nums: Vec<char> = line.chars()
             .filter(|c| c.is_digit(10))
