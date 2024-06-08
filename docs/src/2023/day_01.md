@@ -75,3 +75,48 @@ fn main() {
 ```
 
 Here we read the input file to a string and use this as input for our `part_one()` function. This function returns an `i64`, so we bind a variable to that and print the variable. If everything works correctly, you should see the correct answer here.
+
+## Part two
+
+Part two throws us a bit for a loop, because it appears that there are also numbers hidden in our file with plain text. This looks like this: `two1nine`, which means the answer should be `29`. This is because we need to parse the text numbers into numbers and then take the first and last part of the numbers.
+
+Let's start by writing another test and making sure all the functions are correct. Our new test uses a different test input, so it looks a bit different.
+
+```rust
+#[test]
+fn test_part_two() {
+    let input_file: &str = "\
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
+
+    let answer: i64 = 281;
+
+    assert_eq!(answer, part_two(input_file));
+}
+```
+
+We also have created a `part_two()` function, which returns an `i64` and added the part two output to our `main()` function. This looks like this.
+
+```rust
+fn main() {
+    let input_file = include_str!("../../inputs/day_01.txt");
+
+    let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
+
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
+}
+
+fn part_two(input: &str) -> i64 {
+    let lines = parse(input);
+
+    281
+}
+```
+
+We still use the same input file, but the output now also outputs the second part. I'm currently just returning the answer so my test passes. Now let's start solving the problem.
