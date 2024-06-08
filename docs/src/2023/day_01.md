@@ -35,4 +35,19 @@ fn parse(file: &str) -> Vec<&str> {
 }
 ```
 
-To get every digit from 
+To get every digit from the string, we can use the filter method:
+
+```rust
+for line in lines {
+    let nums: Vec<char> = line.chars()
+        .filter(|c| c.is_digit(10))
+        .collect();
+    
+    let number_string: String = [nums[0], nums[nums.len() - 1]].iter().collect();
+    let number: i64 = number_string.parse::<i64>().expect("Can't parse string!");
+
+    answer += number;
+}
+```
+
+In this for loop, we first create a vector from the characters in our string that are digits. So if a string is `1abc2`, the associated vector will be `['1', '2']`.
