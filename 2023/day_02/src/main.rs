@@ -47,9 +47,7 @@ fn part_two(input: &str) -> i64 {
     let games: Vec<&str> = parse(input);
     let mut answer: i64 = 0;
 
-    for (id, game ) in games.iter().enumerate() {
-        let id = id + 1;
-
+    for game in games {
         let mut red: Vec<i64> = Vec::new();
         let mut green: Vec<i64> = Vec::new();
         let mut blue: Vec<i64> = Vec::new();
@@ -74,7 +72,13 @@ fn part_two(input: &str) -> i64 {
             };
         }
 
-        answer += id as i64;
+        let red = red.iter().max().expect("Couldn't find minimum value!");
+        let green = green.iter().max().expect("Couldn't find minimum value!");
+        let blue = blue.iter().max().expect("Couldn't find minimum value!");
+
+        let power: i64 = red * green * blue;
+
+        answer += power;
 
     }
 
@@ -108,5 +112,19 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
         let answer: i64 = 8;
 
         assert_eq!(answer, part_one(input_file));
+    }
+
+    #[test]
+    fn test_part_two() {
+        let input_file: &str = "\
+Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
+
+        let answer: i64 = 2286;
+
+        assert_eq!(answer, part_two(input_file));
     }
 }
