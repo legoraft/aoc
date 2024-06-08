@@ -79,10 +79,10 @@ We now know if a draw was possible, but we still need to skip the round if the v
 
 ``` rust,noplayground
 'outer: for (id, game ) in games.iter().enumerate() {
-    //snip
+    // snip
 
     for draw in draws {
-        //snip
+        // snip
 
         if !possible { continue 'outer; }
     }
@@ -109,4 +109,68 @@ fn main() {
 We can now use this to print out the answer of part one, but let's add the part two function too!
 
 ## Part two
+
+For part two, we need to check the minimum amount of cubes of each color necessary to play a game. We need to multiply all the values of all colors together and add it up to come to the answer. Let's start by making another test.
+
+```rust,noplayground
+#[test]
+fn test_part_two() {
+    let input_file: &str = "\
+Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
+
+    let answer: i64 = 2286;
+
+    assert_eq!(answer, part_two(input_file));
+}
+```
+
+Now we need to get the answer for part two, so let's start on that. The first part is mostly the same, so let's copy and paste that from part one. We need to change up some parts of the innermost for loop though.
+
+```rust,noplayground
+let games: Vec<&str> = parse(input);
+let mut answer: i64 = 0;
+
+for game in games {
+    let mut red: Vec<i64> = Vec::new();
+    let mut green: Vec<i64> = Vec::new();
+    let mut blue: Vec<i64> = Vec::new();
+    
+    // snip
+# 
+#     let draws: Vec<&str> = game
+#         .split([',', ';'])
+#         .map(|s| s.trim())
+#         .collect();
+
+    for draw in draws {
+#         let (count, color) = draw
+#             .split_once(" ")
+#             .expect("Can't split draw!");
+# 
+    // snip
+        let count = count.parse::<i64>().expect("Can't parse count!");
+
+        match color {
+            "red" =>  red.push(count),
+            "green" =>  green.push(count),
+            "blue" =>  blue.push(count),
+            _ => panic!("That shouldn't happen..."),
+        };
+    }
+
+    let red = red.iter().max().expect("Couldn't find minimum value!");
+    let green = green.iter().max().expect("Couldn't find minimum value!");
+    let blue = blue.iter().max().expect("Couldn't find minimum value!");
+
+    let power: i64 = red * green * blue;
+
+    answer += power;
+}
+
+answer
+```
 
