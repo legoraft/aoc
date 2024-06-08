@@ -10,7 +10,29 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 }
 
 fn part_one(input: &str) -> i64 {
+    let games: Vec<&str> = parse(input);
 
+    for (id, game ) in games.iter().enumerate() {
+        let id = id + 1;
+
+        let draws: Vec<&str> = game
+            .split([',', ';'])
+            .map(|s| s.trim())
+            .collect();
+
+        for draw in draws {
+            let (count, color) = draw
+                .split_once(" ")
+                .expect("Can't split draw!");
+
+            let possible = match color {
+                "red" =>  count.parse::<i64>().expect("Can't parse count!") <= 12,
+                "green" =>  count.parse::<i64>().expect("Can't parse count!") <= 13,
+                "blue" =>  count.parse::<i64>().expect("Can't parse count!") <= 14,
+                _ => panic!("That shouldn't happen..."),
+            };
+        }
+    }
 
     8
 }
