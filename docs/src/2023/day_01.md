@@ -204,7 +204,7 @@ If you want to test the full solution, with the test input, check this out.
 fn main() {
     let input_file = "\
 two1nine
-eightwothree
+eightwo1three
 abcone2threexyz
 xtwone3four
 4nineeightseven2
