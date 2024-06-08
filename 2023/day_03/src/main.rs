@@ -7,7 +7,26 @@ fn main() {
 }
 
 fn part_one(input: &str) -> i64 {
+    let map = parser(input);
+
+    for ( y, line ) in map.iter().enumerate() {
+        for symbol in line.iter().enumerate() {
+            if symbol != '.' && !symbol.is_digit(10) {
+
+            }
+        }
+    }
+
     0
+}
+
+fn parser(file: &str) -> Vec<Vec<char>> {
+    let map: Vec<Vec<char>> = file
+        .lines()
+        .map(|s| s.chars().collect())
+        .collect();
+
+    map
 }
 
 #[cfg(test)]
