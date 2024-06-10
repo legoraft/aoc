@@ -9,12 +9,21 @@ fn main() {
 fn part_one(input: &str) -> i64 {
     let map = parser(input);
 
-    for ( y, line ) in map.iter().enumerate() {
-        for symbol in line.iter().enumerate() {
-            if symbol != '.' && !symbol.is_digit(10) {
+    let chars: Vec<(usize, usize)> = map
+        .iter()
+        .enumerate()
+        .flat_map(|(y, row)| {
+            row.iter()
+            .enumerate()
+            .filter_map(move |(x, &ch)| if !ch.is_digit(10) && ch != '.' {
+                Some((x, y))
+            } else {
+                None
+            })
+        }).collect();
 
-            }
-        }
+    for char in chars {
+        
     }
 
     0
