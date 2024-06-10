@@ -16,8 +16,7 @@ fn part_one(input: &str) -> i64 {
     for (y, line) in map.iter.enumerate() {
         for (x, ch) in line.iter.enumerate() {
             if ch == digit {
-                let number = extend_digit()
-                let coords = get_coords()
+                let (number, coords) = extend_digit()
 
                 nums.push(Number {
                     number,
@@ -37,7 +36,19 @@ fn part_one(input: &str) -> i64 {
     }
 
     extend_digit() {
+        let mut number = vec!
+        let mut coords = HashSet
         
+        for x in x..map.len() {
+            if x.isdigit() {
+                number.push map[y][x]
+                coords.insert((x, y))
+            } else {
+                break 
+            }
+        }
+
+        number.parse, coords
     }
 
     */
