@@ -1,3 +1,4 @@
+use core::num;
 use std::collections::HashSet;
 
 fn main() {
@@ -6,6 +7,40 @@ fn main() {
     let answer_one = part_one(input_file);
 
     println!("Part one: {}\n", answer_one);
+}
+
+struct Number {
+    value: i64,
+    coords: HashSet<(i64, i64)>,
+}
+
+impl Number {
+    fn new(x: usize, y: usize, map: Vec<Vec<char>>) -> Self {
+        let mut number: String = String::new();
+        let mut coords: HashSet<(i64, i64)>;
+
+        for x in x..map.len() {
+            if map[y][x].is_digit(10) {
+                number.push(map[y][x]);
+
+                let x = x as i64;
+                let y = y as i64;
+
+                coords.extend(HashSet::from([
+                    (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
+                    (x, y - 1), (x, y + 1),
+                    (x + 1, y - 1), (x + 1, y), (x + 1, y + 1),
+                ]));
+            } else {
+                break;
+            }
+        }
+
+        Number {
+            value: number.parse::<i64>().expect("Couldn't parse number!"),
+            coords,
+        }
+    }
 }
 
 fn part_one(input: &str) -> i64 {
@@ -52,6 +87,28 @@ fn part_one(input: &str) -> i64 {
     }
 
     */
+
+    let map = parser(input);
+
+    let nums: Vec<Number> = Vec::new();
+
+    for (y, line) in map.iter().enumerate() {
+        for (x, ch) in line.iter().enumerate() {
+            if ch == digit {
+                let (number, coords) = 
+
+                nums.push(Number {
+                    number,
+                    coords
+                })
+            } if ch == symbol {
+                let coords = get_coords()
+                syms.push(coords)
+            } else {
+                continue 
+            }
+        }
+    }
     
     0
 }
