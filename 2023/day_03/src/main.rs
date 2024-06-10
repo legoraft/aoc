@@ -9,6 +9,39 @@ fn main() {
 }
 
 fn part_one(input: &str) -> i64 {
+    /*
+    
+    let map = parser(input);
+
+    for (y, line) in map.iter.enumerate() {
+        for (x, ch) in line.iter.enumerate() {
+            if ch == digit {
+                let number = extend_digit()
+                let coords = get_coords()
+
+                nums.push(Number {
+                    number,
+                    coords
+                })
+            } if ch == symbol {
+                let coords = get_coords()
+                syms.push(coords)
+            } else {
+                continue 
+            }
+        }
+    }
+
+    if syms.contains(nums.number.coords) {
+        answer += number
+    }
+
+    extend_digit() {
+        
+    }
+
+    */
+    
     0
 }
 
