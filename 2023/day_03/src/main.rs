@@ -1,4 +1,3 @@
-use core::num;
 use std::collections::HashSet;
 
 fn main() {
@@ -109,8 +108,6 @@ fn part_one(input: &str) -> i64 {
                 n += (num.value.to_string()).len() - 1;
                 numbers.push(num);
             } else if ch != '.' {
-                println!("{ch}");
-
                 let coords = [
                     (x as i64, y as i64),
                 ];
@@ -120,8 +117,6 @@ fn part_one(input: &str) -> i64 {
             }
         }
     }
-
-    println!("{:?}", symbols);
 
     for number in numbers {
         if number.coords.intersection(&symbols).next().is_some() {
