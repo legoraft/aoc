@@ -85,5 +85,24 @@ Part two makes this a whole lot more difficult. If we win on a card, we get that
 
 This is really difficult to understand and the solution is everything but difficult.
 
+```rust,noplayground
+let mut answer: Vec<i64> = vec![1; lines.len()];
 
-The files for this day are available [here](https://github.com/legoraft/aoc/blob/main/2023/day_01). If you want to test the full solution with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=8218e04fb1cbd290becce380c8e1ffda).
+for (index, line) in lines.iter().enumerate() {
+    // snip
+
+    for i in index + 1..index + count + 1 {
+        answer[i] += answer[index];
+    }
+}
+
+answer.iter().sum()
+```
+
+The for loop is almost exactly the same, we've just added a small inner loop. What this loop does is keep track of how many cards we have in total. We start by creating a `vec!` that contains the value one over the length of all the cards. This can be done with the `vec![1; num]` syntax, where num is the amount of cards, or `lines.len()`.
+
+After calculating the win count, we iterate over the vector we've created from the card after the current card, till the amount of wins we've gotten. We add the value of the current card to the cards at that location, essentially creating the correct amount of duplicates for that card.
+
+If that was a bit unclear, maybe this will make it a bit more clear. If we have a vector of 3 cards, which looks like `[1, 1, 1]` when initialized, because we start with one card each. Then card 1 has 2 wins, giving us an extra card 2 and 3. The iterator will go from the location of card 1 and add it to card 2 and 3, creating `[1, 2, 2]` as a vec. Next we have card 2, which has 1 win and gives us an extra card 3. The iterator will now take the value of card 2 (which is 2, because we have one copy) and add this to card 3. This means that our final vector will be `[1, 2, 3]`. By summing this, we get our total amount of cards!
+
+This day was a lot of parsing and iterating, so if you want to check out the files, take a look in the [repo](https://github.com/legoraft/aoc/blob/main/2023/day_04). If you want to test the full solution with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=4b16490c5f91cc5f9d7cf96272170830).
