@@ -226,6 +226,20 @@ let map = parser(input);
 
 I've cut off the last few for loops, but what I mainly did here is renamed our `symbols` variable to `gears` (because we're looking for gears) and check if the character is a `*`, which is a gear. Now let's go over the search loop.
 
+```rust,noplayground
+for gear in gears {
+    let mut hits: Vec<i64> = Vec::new(); 
+    for number in &numbers {
+        if number.coords.contains(&gear) {
+            hits.push(number.value);
+        }
+    }
+    if hits.len() == 2 {
+        answer += hits[0] * hits[1];
+    }
+}
+```
 
+Here, we iterate over each gear in stead of each number. Within each gear, we gather the hits we got around the gear. We do this by iterating over each number and check if it's coordinates are the same as the coordinates of the gear. After we've looped over all numbers, we check if we just have 2 hits. If this is true, we multiply the two numbers we've found and add them to our answer.
 
-To run the code with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69fc7faa79dd1f893791158cea54f142).
+Today was a bit difficult with the 2D vectors, but after preparing most work for part one, part two was significantly easier. If you want to check out the full file for day 3, take a look at the [repo](https://github.com/legoraft/aoc/tree/main/2023/day_03). To run the code with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69fc7faa79dd1f893791158cea54f142).
