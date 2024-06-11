@@ -108,14 +108,11 @@ fn part_one(input: &str) -> i64 {
                 let num = Number::new(x, y, &map);
                 n += (num.value.to_string()).len() - 1;
                 numbers.push(num);
-            } if ch != '.' {
-                let x = x as i64;
-                let y = y as i64;
+            } else if ch != '.' {
+                println!("{ch}");
 
                 let coords = [
-                    (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
-                    (x, y - 1), (x, y + 1),
-                    (x + 1, y - 1), (x + 1, y), (x + 1, y + 1),
+                    (x as i64, y as i64),
                 ];
                 symbols.extend(coords);
             } else {
