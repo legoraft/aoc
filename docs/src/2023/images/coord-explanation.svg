@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30mm"
+   height="30mm"
+   viewBox="0 0 30 30"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="coord-explanation.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   inkscape:export-filename="coord-explanation.png"
+   inkscape:export-xdpi="433.49335"
+   inkscape:export-ydpi="433.49335"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="5.0327195"
+     inkscape:cx="58.41772"
+     inkscape:cy="50.569081"
+     inkscape:window-width="1712"
+     inkscape:window-height="1040"
+     inkscape:window-x="0"
+     inkscape:window-y="39"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <defs
+     id="defs1">
+    <rect
+       x="37.795277"
+       y="41.130844"
+       width="30.55743"
+       height="29.20886"
+       id="rect8" />
+    <rect
+       x="37.795277"
+       y="37.795277"
+       width="37.795277"
+       height="37.795277"
+       id="rect7" />
+    <rect
+       x="37.795277"
+       y="41.130844"
+       width="30.55743"
+       height="29.20886"
+       id="rect9" />
+  </defs>
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect1"
+     width="30"
+     height="30"
+     x="0"
+     y="0" />
+  <text
+     xml:space="preserve"
+     transform="matrix(0.26458333,0,0,0.26458333,3.2699669,0.30929895)"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:Helvetica;-inkscape-font-specification:Helvetica;white-space:pre;shape-inside:url(#rect8);fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:round;stroke-linejoin:round"><tspan
+       x="37.794922"
+       y="63.697738"
+       id="tspan3">8</tspan></text>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.26458333,0,0,0.26458333,13.781563,11.789829)"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:Helvetica;-inkscape-font-specification:Helvetica;white-space:pre;shape-inside:url(#rect9);fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:round;stroke-linejoin:round"><tspan
+       x="37.794922"
+       y="63.697738"
+       id="tspan4">*</tspan></text>
+  <rect
+     style="fill:#ff9301;fill-opacity:0.501992;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect2"
+     width="30"
+     height="10"
+     x="9.5367432e-07"
+     y="0" />
+  <rect
+     style="fill:#ff9301;fill-opacity:0.501992;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect3"
+     width="30"
+     height="10"
+     x="4.7683716e-07"
+     y="20" />
+  <rect
+     style="fill:#ff9301;fill-opacity:0.501992;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect4"
+     width="10"
+     height="10"
+     x="1.7763568e-15"
+     y="10" />
+  <rect
+     style="fill:#ff9301;fill-opacity:0.501992;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect5"
+     width="10"
+     height="10"
+     x="20"
+     y="10" />
+  <rect
+     style="fill:#11ff01;fill-opacity:0.501992;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     id="rect6"
+     width="10"
+     height="10"
+     x="10"
+     y="10" />
+  <text
+     xml:space="preserve"
+     style="font-size:1.41111px;font-family:Helvetica;-inkscape-font-specification:Helvetica;fill:#8b560e;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1"
+     x="0.35934791"
+     y="1.4156134"
+     id="text9"><tspan
+       sodipodi:role="line"
+       id="tspan9"
+       style="font-size:1.41111px;stroke-width:0.264583;fill:#8b560e;fill-opacity:1"
+       x="0.35934791"
+       y="1.4156134">coords</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:1.41111px;font-family:Helvetica;-inkscape-font-specification:Helvetica;fill:#148b0e;fill-opacity:1;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+     x="10.359348"
+     y="11.415613"
+     id="text10"><tspan
+       sodipodi:role="line"
+       id="tspan10"
+       style="font-size:1.41111px;fill:#148b0e;fill-opacity:1;stroke-width:0.264583"
+       x="10.359348"
+       y="11.415613">coords</tspan></text>
+</svg>
