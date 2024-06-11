@@ -4,8 +4,9 @@ fn main() {
     let input_file = include_str!("../../../2023/inputs/day_03.txt");
 
     let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
 
-    println!("Part one: {}\n", answer_one);
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
 #[derive(Debug)]
@@ -83,6 +84,12 @@ fn part_one(input: &str) -> i64 {
     answer
 }
 
+fn part_two(input: &str) -> i64 {
+    let map = parser(input);
+
+    0
+}
+
 fn parser(file: &str) -> Vec<Vec<char>> {
     let map: Vec<Vec<char>> = file
         .lines()
@@ -113,5 +120,24 @@ mod tests {
         let answer: i64 = 4361;
 
         assert_eq!(answer, part_one(input_file));
+    }
+
+    #[test]
+    fn test_part_two() {
+        let input_file: &str = "\
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..";
+
+        let answer: i64 = 467835;
+
+        assert_eq!(answer, part_two(input_file));
     }
 }
