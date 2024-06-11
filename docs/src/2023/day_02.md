@@ -180,6 +180,10 @@ I've snipped out the parts that are the same as the part one solution, but you c
 To solve part two, we return the answer so we can view our output. The full project for this day is available [here](https://github.com/legoraft/aoc/blob/main/2023/day_02). If you want to try the full solution with a test input, take a look here:
 
 ```rust
+{{#rustdoc_include file.rs:1:8}}
+```
+
+```rust
 fn main() {
     let input_file = "\
 Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
