@@ -1,10 +1,61 @@
+use std::vec;
+
 fn main() {
     println!("Hello, world!");
 }
 
+#[derive(Debug)]
+struct Map {
+    source: i64,
+    destination: i64,
+    range: i64,
+}
+
 fn part_one(input: &str) -> i64 {
+    let (seeds, maps) = parse(input);
+
+    println!("seeds: {:?}\nmaps: {:?}", seeds, maps);
 
     0
+}
+
+fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
+    let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
+
+    let lines: Vec<&str> = maps.split("\n\n")
+        .map(|l| {
+            let (_, maps) = l
+                .split_once(":")
+                .expect("Couldn't split maps!"); maps })
+        .collect();
+
+    let seeds: Vec<i64> = seeds[7..]
+        .split_whitespace()
+        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
+        .collect();
+
+    let mut maps: Vec<Vec<Map>> = Vec::new();
+
+    for line in lines {
+        let mut map: Vec<Map> = Vec::new();
+
+        for locations in line.trim().lines() {
+            let locations: Vec<i64> = locations
+                .split_whitespace()
+                .map(|n| n.parse::<i64>().expect("Couldn't parse map!"))
+                .collect();
+
+            map.push(Map{
+                source: locations[1],
+                destination: locations[0],
+                range: locations[2],
+            })
+        }
+
+        maps.push(map);
+    }
+
+    (seeds, maps)
 }
 
 #[cfg(test)]
