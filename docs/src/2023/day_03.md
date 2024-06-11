@@ -19,7 +19,45 @@ fn parser(file: &str) -> Vec<Vec<char>> {
 }
 ```
 
-This function splits the input into lines and maps the characters in every line to a vector of characters. Now we need to find out if any number is adjacent to a special character. 
+This function splits the input into lines and maps the characters in every line to a vector of characters. This makes it so that we have a 2 dimensional vector of all the characters in the map Now we need to find out if any number is adjacent to a special character. This problem is quite difficult to solve, so let's take a look at the conditions we need to add a number.
+
+First, we need to check if any digit of a number is adjacent to a special character. We also need to get the full number to add to our answer. Because two special characters can be adjacent to the same number, I'm going to store the numbers so I don't have to deal with duplicate numbers. The code I used to find the full number and the coordinates around it is as follows.
+
+```rust,noplayground
+struct Number {
+    value: i64,
+    coords: HashSet<(i64, i64)>,
+}
+
+impl Number {
+    fn new(x: usize, y: usize, map: &Vec<Vec<char>>) -> Self {
+        let mut number: String = String::new();
+        let mut coords: HashSet<(i64, i64)> = HashSet::new();
+
+        for x in x..map.len() {
+            if map[y][x].is_digit(10) {
+                number.push(map[y][x]);
+
+                let x = x as i64;
+                let y = y as i64;
+
+                coords.extend(HashSet::from([
+                    (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
+                    (x, y - 1), (x, y + 1),
+                    (x + 1, y - 1), (x + 1, y), (x + 1, y + 1),
+                ]));
+            } else {
+                break;
+            }
+        }
+
+        Number {
+            value: number.parse::<i64>().expect("Couldn't parse number!"),
+            coords,
+        }
+    }
+}
+```
 
 The pseudocode I used:
 
