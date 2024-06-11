@@ -4,7 +4,7 @@ On day four, we find an elf sitting in a huge pile of scratchcards. We need to h
 
 ## Part one
 
-For the first part, we need to calculate the score for the scratchcards. Each card contains two rows of values, separated by a pipe (`|`). The first row are the winning numbers and the second are the numbers on your card.
+For the first part, we need to calculate the score for the scratchcards. Each card contains two rows of values, separated by a pipe (`|`). The first row are the winning numbers and the second are the numbers on your card. You calculate the score by taking 1 point for the first winning number and doubling this for every consecutive one. This is the same as raising the `score - 1` to the power of 2.
 
 Let's start by writing a test with the example input and throwing it in `mod tests`.
 
@@ -41,11 +41,49 @@ fn parse(file: &str) -> Vec<&str> {
 }
 ```
 
-This parser is basically the same as in [day 2](day_02.md#part-one). Now, we need to split the winning numbers and the owned numbers and throw them in a `HashSet`. We can use the great `intersection()` function for this day again, just like in [day 3](day_03.md#part-one).
+This parser is basically the same as in [day 2](day_02.md#part-one). Now, we need to split the winning numbers and the owned numbers and throw them in a `HashSet`. We can use the great `intersection()` function for this day again, just like in [day 3](day_03.md#part-one). So let's map these numbers in a `HashSet`.
+
+```rust,noplayground
+for line in lines {
+    let (winning, card) = line
+        .split_once(" | ")
+        .expect("Couldn't split numbers!");
+
+    let winning_numbers: HashSet<i64> = winning
+        .split_whitespace()
+        .map(|num| num.parse::<i64>().expect("Can't parse number!"))
+        .collect();
+#   
+#   let card_numbers: HashSet<i64> = card
+#       .split_whitespace()
+#       .map(|num| num.parse::<i64>().expect("Can't parse number!"))
+#       .collect();
+}
+```
+
+First, we split the line at the pipe, so we have two different rows of numbers. Next, we split the cards at the whitespace (because some single-digit numbers have two spaces in front of them) and parse them. After we've parsed the numbers, we map them to a `HashSet`. I've only shown the first variable assignment here, because they're the same. You can take a look at the second one by clicking on the eye icon.
+
+Now, we need to count how many wins we get per card and raise that (minus one) to a power of 2.
+
+```rust,noplayground
+for line in lines {
+    // snip
+
+    let power = winning_numbers.intersection(&card_numbers).count();
+
+    if power > 0 {
+        answer += 2_i64.pow((power - 1) as u32);
+    }
+}
+```
+
+Here, we count the amount of intersections we have per card. Next, we check if the power is greater than 0 (otherwise we're subtracting with overflow) and add the power minus one to the answer. After we've iterated over all the cards, we have our final answer! Now on to part two.
 
 ## Part two
 
-Part two throws us a bit for a loop, because it appears that there are also numbers hidden in our file with plain text. This looks like this: `two1nine`, which means the answer should be `29`. This is because we need to parse the text numbers into numbers and then take the first and last part of the numbers.
+Part two makes this a whole lot more difficult. If we win on a card, we get that amount of consecutive copies on the next crads. There is a lot of text explaining this, but the gist of it is as follows: If we win 2 times on card 1, we get 1 copy of card 2 and 1 copy of card 3. Now, we need to calculate the score for the amount of cards we have for the next and the score of every copy also counts towards the amount of consecutive cards we get.
+
+This is really difficult to understand and the solution is everything but difficult.
 
 
 The files for this day are available [here](https://github.com/legoraft/aoc/blob/main/2023/day_01). If you want to test the full solution with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=8218e04fb1cbd290becce380c8e1ffda).
