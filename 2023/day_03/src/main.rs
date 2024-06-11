@@ -45,7 +45,7 @@ impl Number {
 }
 
 fn part_one(input: &str) -> i64 {
-    let map = parser(input);
+    let map = parse(input);
     let mut answer = 0;
 
     let mut numbers: Vec<Number> = Vec::new();
@@ -85,7 +85,7 @@ fn part_one(input: &str) -> i64 {
 }
 
 fn part_two(input: &str) -> i64 {
-    let map = parser(input);
+    let map = parse(input);
     let mut answer = 0;
 
     let mut numbers: Vec<Number> = Vec::new();
@@ -130,7 +130,7 @@ fn part_two(input: &str) -> i64 {
     answer
 }
 
-fn parser(file: &str) -> Vec<Vec<char>> {
+fn parse(file: &str) -> Vec<Vec<char>> {
     let map: Vec<Vec<char>> = file
         .lines()
         .map(|s| s.chars().collect())
