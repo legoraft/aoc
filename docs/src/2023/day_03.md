@@ -198,4 +198,34 @@ fn test_part_two() {
 }
 ```
 
+Now, let's copy our code from part one and make a few adjustments to it.
+
+```rust,noplayground
+let map = parser(input);
+// snip
+    let mut gears: HashSet<(i64, i64)> = HashSet::new();
+
+    for (y, line) in map.iter().enumerate() {
+        let mut n = 0;
+
+        for (x, &ch) in line.iter().enumerate() {
+            // snip
+            if ch.is_digit(10) {
+                // snip
+            } else if ch == '*' {
+                let coords = [
+                    (x as i64, y as i64),
+                ];
+                gears.extend(coords);
+            } else {
+                continue 
+            }
+        }
+    }
+```
+
+I've cut off the last few for loops, but what I mainly did here is renamed our `symbols` variable to `gears` (because we're looking for gears) and check if the character is a `*`, which is a gear. Now let's go over the search loop.
+
+
+
 To run the code with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69fc7faa79dd1f893791158cea54f142).
