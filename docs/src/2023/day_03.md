@@ -21,7 +21,38 @@ fn parser(file: &str) -> Vec<Vec<char>> {
 
 This function splits the input into lines and maps the characters in every line to a vector of characters. This makes it so that we have a 2 dimensional vector of all the characters in the map Now we need to find out if any number is adjacent to a special character. This problem is quite difficult to solve, so let's take a look at the conditions we need to add a number.
 
-First, we need to check if any digit of a number is adjacent to a special character. We also need to get the full number to add to our answer. Because two special characters can be adjacent to the same number, I'm going to store the numbers so I don't have to deal with duplicate numbers. The code I used to find the full number and the coordinates around it is as follows.
+First, we need to check if any digit of a number is adjacent to a special character. We also need to get the full number to add to our answer. Because two special characters can be adjacent to the same number, I'm going to store the numbers so I don't have to deal with duplicate numbers. Let's try to find a digit in our array of characters first.
+
+```rust,noplayground
+let mut numbers: Vec<Number> = Vec::new();
+let mut symbols: HashSet<(i64, i64)> = HashSet::new();
+
+for (y, line) in map.iter().enumerate() {
+    let mut n = 0;
+
+    for (x, &ch) in line.iter().enumerate() {
+        if n > 0 {
+            n -= 1;
+            continue;
+        }
+        
+        if ch.is_digit(10) {
+            let num = Number::new(x, y, &map);
+            n += (num.value.to_string()).len() - 1;
+            numbers.push(num);
+        } else if ch != '.' {
+            let coords = [
+                (x as i64, y as i64),
+            ];
+            symbols.extend(coords);
+        } else {
+            continue 
+        }
+    }
+}
+```
+
+The code I used to find the full number and the coordinates around it is as follows.
 
 ```rust,noplayground
 struct Number {
