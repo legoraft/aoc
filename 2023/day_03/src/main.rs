@@ -44,50 +44,6 @@ impl Number {
 }
 
 fn part_one(input: &str) -> i64 {
-    /*
-    
-    let map = parser(input);
-
-    for (y, line) in map.iter.enumerate() {
-        for (x, ch) in line.iter.enumerate() {
-            if ch == digit {
-                let (number, coords) = extend_digit()
-
-                nums.push(Number {
-                    number,
-                    coords
-                })
-            } if ch == symbol {
-                let coords = get_coords()
-                syms.push(coords)
-            } else {
-                continue 
-            }
-        }
-    }
-
-    if syms.contains(nums.number.coords) {
-        answer += number
-    }
-
-    extend_digit() {
-        let mut number = vec!
-        let mut coords = HashSet
-        
-        for x in x..map.len() {
-            if x.isdigit() {
-                number.push map[y][x]
-                coords.insert((x, y))
-            } else {
-                break 
-            }
-        }
-
-        number.parse, coords
-    }
-
-    */
-
     let map = parser(input);
     let mut answer = 0;
 
