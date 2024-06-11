@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 fn main() {
     let input_file = include_str!("../../../2023/inputs/day_04.txt");
 
@@ -7,9 +9,32 @@ fn main() {
 }
 
 fn part_one(input: &str) -> i64 {
+    let lines = parse(input);
+    let mut answer: i64 = 0;
+
+    for line in lines {
+        let (winning, card) = line
+            .split_once(" | ")
+            .expect("Couldn't split numbers!");
+
+        let winning_numbers: HashSet<i64> = winning
+            .split_whitespace()
+            .map(|num| num.parse::<i64>().expect("Can't parse number!"))
+            .collect();
+
+        let card_numbers: HashSet<i64> = card
+        .split_whitespace()
+        .map(|num| num.parse::<i64>().expect("Can't parse number!"))
+        .collect();
+
+        let power = winning_numbers.intersection(&card_numbers).count();
+
+        if power > 0 {
+            answer += 2_i64.pow((power - 1) as u32);
+        }
+    }
     
-    
-    0
+    answer
 }
 
 fn parse(file: &str) -> Vec<&str> {
