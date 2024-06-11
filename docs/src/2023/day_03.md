@@ -4,7 +4,28 @@ For day three, we need to find a certain engine part for an elf engineer so we c
 
 ## Part one
 
-For part one, we need to add up all part numbers that are adjecent to a symbol. These numbers can be adjacent horizontal, vertical or diagonal. This is what makes the challenge a bit difficult.
+For part one, we need to add up all part numbers that are adjecent to a symbol. These numbers can be adjacent horizontal, vertical or diagonal. This is what makes the challenge a bit difficult. Let's start creating a simple test for part one.
+
+```rust,noplayground
+#[test]
+fn test_part_one() {
+    let input_file: &str = "\
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..";
+
+    let answer: i64 = 4361;
+
+    assert_eq!(answer, part_one(input_file));
+}
+```
 
 My first idea is to create a vector of every line, with every character in the line being stored in a vector. With this we can have a coordinate system, with the index in vector 1 being y and the index in vec 2 being x. This can be whipped up with a simple parser function.
 
@@ -139,5 +160,42 @@ Here, we just get the current `x` and `y` values as an `i64` and add them to our
 <img class="right" width="200" height="auto"  src="images/coord-explanation.svg" alt="Explanation of coordinate overlap.">
 
 We get all the coordinates around a number and the coordinates of the symbols, and that's basically the point where we are now. To find which numbers we need to add up, we need to check if the coordinates around a number intersect with the coordinates of a symbol. Luckily, a `HashSet` has this great function called `intersection()`. To make the general idea a bit clearer, I've added an image. Here, the orange parts are the coordinates around our number. If we find a symbol in those coordinates (the `*` in this case) we want to see that as a part number.
+
+Let's implement this in our code. Luckily, it is quite easy. We've gotten both coordinates in HashSets, so we can just `intersection()` them.
+
+```rust,noplayground
+for number in numbers {
+    if number.coords.intersection(&symbols).next().is_some() {
+        answer += number.value;
+    }
+}
+```
+
+We check the if the coordinates for each number intersect with the coordinates for each symbol. If that is true, we just add our number and we get our output!
+
+## Part 2
+
+For the second part, we need to find the gear ratios within our schematic. To find these, we need to find the 'gears', or `*` and multiply the two numbers next to it if we find just two numbers. Note that if we find 1 or 3 numbers, the calculation doesn't count. Let's start by writing a new test.
+
+```rust,noplayground
+#[test]
+fn test_part_two() {
+    let input_file: &str = "\
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..";
+
+    let answer: i64 = 467835;
+
+    assert_eq!(answer, part_two(input_file));
+}
+```
 
 To run the code with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69fc7faa79dd1f893791158cea54f142).
