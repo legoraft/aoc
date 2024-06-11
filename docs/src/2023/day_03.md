@@ -136,7 +136,7 @@ for (y, line) in map.iter().enumerate() {
 
 Here, we just get the current `x` and `y` values as an `i64` and add them to our `HashSet`. Now let's just reiterate over what we've done. First, we map all the characters into a 2D vector and iterate over those characters. When we find a digit, we create a number out of it and skip the iterations over the length of the number to prevent the creation of non-existent numbers.
 
-<img class="right" src="images/coord-explanation.svg" alt="Explanation of coordinate overlap.">
+<img class="right" width="200" height="auto"  src="images/coord-explanation.svg" alt="Explanation of coordinate overlap.">
 
 We get all the coordinates around a number and the coordinates of the symbols, and that's basically the point where we are now. To find which numbers we need to add up, we need to check if the coordinates around a number intersect with the coordinates of a symbol. Luckily, a `HashSet` has this great function called `intersection()`. To make the general idea a bit clearer, I've added an image. Here, the orange parts are the coordinates around our number. If we find a symbol in those coordinates (the `*` in this case) we want to see that as a part number.
 
