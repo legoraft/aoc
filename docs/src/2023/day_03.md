@@ -29,7 +29,7 @@ fn test_part_one() {
 
 My first idea is to create a vector of every line, with every character in the line being stored in a vector. With this we can have a coordinate system, with the index in vector 1 being y and the index in vec 2 being x. This can be whipped up with a simple parser function.
 
-```rust, noplayground
+```rust,noplayground
 fn parser(file: &str) -> Vec<Vec<char>> {
     let map: Vec<Vec<char>> = file
         .lines()
@@ -173,7 +173,7 @@ for number in numbers {
 
 We check the if the coordinates for each number intersect with the coordinates for each symbol. If that is true, we just add our number and we get our output!
 
-## Part 2
+## Part two
 
 For the second part, we need to find the gear ratios within our schematic. To find these, we need to find the 'gears', or `*` and multiply the two numbers next to it if we find just two numbers. Note that if we find 1 or 3 numbers, the calculation doesn't count. Let's start by writing a new test.
 
