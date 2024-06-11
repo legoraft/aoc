@@ -86,8 +86,48 @@ fn part_one(input: &str) -> i64 {
 
 fn part_two(input: &str) -> i64 {
     let map = parser(input);
+    let mut answer = 0;
 
-    0
+    let mut numbers: Vec<Number> = Vec::new();
+    let mut gears: HashSet<(i64, i64)> = HashSet::new();
+
+    for (y, line) in map.iter().enumerate() {
+        let mut n = 0;
+
+        for (x, &ch) in line.iter().enumerate() {
+            if n > 0 {
+                n -= 1;
+                continue;
+            }
+            
+            if ch.is_digit(10) {
+                let num = Number::new(x, y, &map);
+                n += (num.value.to_string()).len() - 1;
+                numbers.push(num);
+            } else if ch == '*' {
+                let coords = [
+                    (x as i64, y as i64),
+                ];
+                gears.extend(coords);
+            } else {
+                continue 
+            }
+        }
+    }
+
+    for gear in gears {
+        let mut hits: Vec<i64> = Vec::new(); 
+        for number in &numbers {
+            if number.coords.contains(&gear) {
+                hits.push(number.value);
+            }
+        }
+        if hits.len() == 2 {
+            answer += hits[0] * hits[1];
+        }
+    }
+    
+    answer
 }
 
 fn parser(file: &str) -> Vec<Vec<char>> {
