@@ -21,36 +21,28 @@ fn parser(file: &str) -> Vec<Vec<char>> {
 
 This function splits the input into lines and maps the characters in every line to a vector of characters. This makes it so that we have a 2 dimensional vector of all the characters in the map Now we need to find out if any number is adjacent to a special character. This problem is quite difficult to solve, so let's take a look at the conditions we need to add a number.
 
-First, we need to check if any digit of a number is adjacent to a special character. We also need to get the full number to add to our answer. Because two special characters can be adjacent to the same number, I'm going to store the numbers so I don't have to deal with duplicate numbers. Let's try to find a digit in our array of characters first.
+First, we need to check if any digit of a number is adjacent to a special character. We also need to get the full number to add to our answer. Because two special characters can be adjacent to the same number, I'm going to store the numbers so I don't have to deal with duplicate numbers at symbols. Let's try to find a digit in our array of characters first.
 
 ```rust,noplayground
 let mut numbers: Vec<Number> = Vec::new();
 let mut symbols: HashSet<(i64, i64)> = HashSet::new();
 
 for (y, line) in map.iter().enumerate() {
-    let mut n = 0;
 
     for (x, &ch) in line.iter().enumerate() {
-        if n > 0 {
-            n -= 1;
-            continue;
-        }
-        
+
         if ch.is_digit(10) {
-            let num = Number::new(x, y, &map);
-            n += (num.value.to_string()).len() - 1;
-            numbers.push(num);
+            // get number + coords
         } else if ch != '.' {
-            let coords = [
-                (x as i64, y as i64),
-            ];
-            symbols.extend(coords);
+            // get symbol coords
         } else {
             continue 
         }
     }
 }
 ```
+
+In this piece of code, we iterate over each line and each character, keeping track of the indices by using `enumerate()`. If we find a digit, we want to get the full number and the coordinates of the cells around the number. If we find a special character (that's not a `.`) we want to get the coordinates of that symbol only, so we can overlay the coordinates of the number's surroundings with the coordinates of the character.
 
 The code I used to find the full number and the coordinates around it is as follows.
 
