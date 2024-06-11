@@ -24,9 +24,9 @@ fn part_one(input: &str) -> i64 {
             .collect();
 
         let card_numbers: HashSet<i64> = card
-        .split_whitespace()
-        .map(|num| num.parse::<i64>().expect("Can't parse number!"))
-        .collect();
+            .split_whitespace()
+            .map(|num| num.parse::<i64>().expect("Can't parse number!"))
+            .collect();
 
         let power = winning_numbers.intersection(&card_numbers).count();
 
