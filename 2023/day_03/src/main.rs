@@ -9,15 +9,16 @@ fn main() {
     println!("Part one: {}\n", answer_one);
 }
 
+#[derive(Debug)]
 struct Number {
     value: i64,
     coords: HashSet<(i64, i64)>,
 }
 
 impl Number {
-    fn new(x: usize, y: usize, map: Vec<Vec<char>>) -> Self {
+    fn new(x: usize, y: usize, map: &Vec<Vec<char>>) -> Self {
         let mut number: String = String::new();
-        let mut coords: HashSet<(i64, i64)>;
+        let mut coords: HashSet<(i64, i64)> = HashSet::new();
 
         for x in x..map.len() {
             if map[y][x].is_digit(10) {
@@ -89,28 +90,49 @@ fn part_one(input: &str) -> i64 {
     */
 
     let map = parser(input);
+    let mut answer = 0;
 
-    let nums: Vec<Number> = Vec::new();
+    let mut numbers: Vec<Number> = Vec::new();
+    let mut symbols: HashSet<(i64, i64)> = HashSet::new();
 
     for (y, line) in map.iter().enumerate() {
-        for (x, ch) in line.iter().enumerate() {
-            if ch == digit {
-                let (number, coords) = 
+        let mut n = 0;
 
-                nums.push(Number {
-                    number,
-                    coords
-                })
-            } if ch == symbol {
-                let coords = get_coords()
-                syms.push(coords)
+        for (x, &ch) in line.iter().enumerate() {
+            if n > 0 {
+                n -= 1;
+                continue;
+            }
+            
+            if ch.is_digit(10) {
+                let num = Number::new(x, y, &map);
+                n += (num.value.to_string()).len() - 1;
+                numbers.push(num);
+            } if ch != '.' {
+                let x = x as i64;
+                let y = y as i64;
+
+                let coords = [
+                    (x - 1, y - 1), (x - 1, y), (x - 1, y + 1),
+                    (x, y - 1), (x, y + 1),
+                    (x + 1, y - 1), (x + 1, y), (x + 1, y + 1),
+                ];
+                symbols.extend(coords);
             } else {
                 continue 
             }
         }
     }
+
+    println!("{:?}", symbols);
+
+    for number in numbers {
+        if number.coords.intersection(&symbols).next().is_some() {
+            answer += number.value;
+        }
+    }
     
-    0
+    answer
 }
 
 fn parser(file: &str) -> Vec<Vec<char>> {
