@@ -134,51 +134,8 @@ for (y, line) in map.iter().enumerate() {
     }
 ```
 
-Here, we just get the current `x` and `y` values as an `i64` and add them to our `HashSet`.
+Here, we just get the current `x` and `y` values as an `i64` and add them to our `HashSet`. Now let's just reiterate over what we've done. First, we map all the characters into a 2D vector and iterate over those characters. When we find a digit, we create a number out of it and skip the iterations over the length of the number to prevent the creation of non-existent numbers.
 
-The pseudocode I used:
-
-```rust,noplayground
-/*
-    
-let map = parser(input);
-
-for (y, line) in map.iter.enumerate() {
-    for (x, ch) in line.iter.enumerate() {
-        if ch == digit {
-            let (number, coords) = extend_digit()
-            nums.push(Number {
-                number,
-                coords
-            })
-        } if ch == symbol {
-            let coords = get_coords()
-            syms.push(coords)
-        } else {
-            continue 
-        }
-    }
-}
-
-if syms.contains(nums.number.coords) {
-    answer += number
-}
-
-extend_digit() {
-    let mut number = vec!
-    let mut coords = HashSet
-    
-    for x in x..map.len() {
-        if x.isdigit() {
-            number.push map[y][x]
-            coords.insert((x, y))
-        } else {
-            break 
-        }
-    }
-    number.parse, coords
-}
-*/
-```
+We get all the coordinates around a number and the coordinates of the symbols, and that's basically the point where we are now. To find which numbers we need to add up, we need to check if the coordinates around a number 
 
 To run the code with the test input, check out the [playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69fc7faa79dd1f893791158cea54f142).
