@@ -1,5 +1,3 @@
-use std::vec;
-
 fn main() {
     println!("Hello, world!");
 }
@@ -11,15 +9,41 @@ struct Map {
     range: i64,
 }
 
-fn part_one(input: &str) -> i64 {
-    let (seeds, maps) = parse(input);
-
-    println!("seeds: {:?}\nmaps: {:?}", seeds, maps);
-
-    0
+#[derive(Debug)]
+struct Block {
+    maps: Vec<Map>
 }
 
-fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
+fn part_one(input: &str) -> i64 {
+    let (seeds, blocks) = parse(input);
+
+    let seeds: Vec<i64> = seeds
+        .split_whitespace()
+        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
+        .collect();
+
+    let mut positions: Vec<i64> = Vec::new();
+
+    for mut seed in seeds {
+        for block in &blocks {
+            for map in &block.maps {
+                if (map.source..map.source + map.range).contains(&seed) {
+                    seed = seed + (map.destination - map.source);
+                    break;
+                }
+            }
+        }
+        positions.push(seed);
+    }
+
+    let &answer = positions
+        .iter()
+        .min().expect("Couldn't find minimal value!");
+
+    answer
+}
+
+fn parse(file: &str) -> (&str, Vec<Block>) {
     let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
 
     let lines: Vec<&str> = maps.split("\n\n")
@@ -29,15 +53,12 @@ fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
                 .expect("Couldn't split maps!"); maps })
         .collect();
 
-    let seeds: Vec<i64> = seeds[7..]
-        .split_whitespace()
-        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
-        .collect();
+    let seeds: &str = &seeds[7..];
 
-    let mut maps: Vec<Vec<Map>> = Vec::new();
+    let mut blocks: Vec<Block> = Vec::new();
 
     for line in lines {
-        let mut map: Vec<Map> = Vec::new();
+        let mut maps: Vec<Map> = Vec::new();
 
         for locations in line.trim().lines() {
             let locations: Vec<i64> = locations
@@ -45,17 +66,19 @@ fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
                 .map(|n| n.parse::<i64>().expect("Couldn't parse map!"))
                 .collect();
 
-            map.push(Map{
+            maps.push(Map{
                 source: locations[1],
                 destination: locations[0],
                 range: locations[2],
             })
         }
 
-        maps.push(map);
+        blocks.push(Block {
+            maps,
+        });
     }
 
-    (seeds, maps)
+    (seeds, blocks)
 }
 
 #[cfg(test)]
