@@ -49,11 +49,27 @@ fn part_one(input: &str) -> i64 {
 }
 
 fn part_two(input: &str) -> i64 {
-    let (seeds, blocks) = parse(input);
+    let (seeds_ranges, blocks) = parse(input);
 
-    let seeds: Vec<i64> = seeds.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).collect();
-    let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(seeds.iter()).collect();
-    println!("{:?}", seeds);
+    let seeds: Vec<i64> = seeds_ranges.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).step_by(2).collect();
+    let ranges: Vec<i64> = seeds_ranges.split_whitespace().skip(1).map(|n| n.parse::<i64>().expect("Couldn't parse range!")).step_by(2).collect();
+
+    let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(ranges.iter()).collect();
+
+    let mut positions: Vec<i64> = Vec::new();
+    
+    for (mut seed, range) in seeds {
+        for block in &blocks {
+            for map in &block.maps {
+                if (&map.source < &seed && map.destination > (seed + range)) {
+                    let seed = &(seed + (map.destination - map.source));
+                } else {
+                    println!("Seed out of range!");
+                }
+            }
+        }
+        positions.push(seed.clone());
+    }
 
     0
 }
