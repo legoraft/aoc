@@ -1,4 +1,4 @@
-# Day one
+# Day four
 
 On day four, we find an elf sitting in a huge pile of scratchcards. We need to help the elf figure out what he has won.
 
