@@ -63,14 +63,16 @@ fn part_two(input: &str) -> i64 {
             for map in &block.maps {
                 if (&map.source < &seed && map.destination > (seed + range)) {
                     let seed = &(seed + (map.destination - map.source));
-                } else {
+                } else if (false) {
                     println!("Seed out of range!");
+                } else {
+                    continue;
                 }
             }
         }
         positions.push(seed.clone());
     }
-
+ 
     0
 }
 
