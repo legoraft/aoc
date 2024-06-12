@@ -1,5 +1,10 @@
 fn main() {
-    println!("Hello, world!");
+    let input_file = include_str!("../../inputs/day_05.txt");
+
+    let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
+
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
 #[derive(Debug)]
@@ -41,6 +46,12 @@ fn part_one(input: &str) -> i64 {
         .min().expect("Couldn't find minimal value!");
 
     answer
+}
+
+fn part_two(input: &str) -> i64 {
+    let (seeds, blocks) = parse(input);
+
+    0
 }
 
 fn parse(file: &str) -> (&str, Vec<Block>) {
