@@ -51,6 +51,8 @@ fn part_one(input: &str) -> i64 {
 fn part_two(input: &str) -> i64 {
     let (seeds, blocks) = parse(input);
 
+    let seeds: Vec<(i64, i64)> = seeds.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).take(2);
+
     0
 }
 
