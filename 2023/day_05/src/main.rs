@@ -51,7 +51,9 @@ fn part_one(input: &str) -> i64 {
 fn part_two(input: &str) -> i64 {
     let (seeds, blocks) = parse(input);
 
-    let seeds: Vec<(i64, i64)> = seeds.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).take(2);
+    let seeds: Vec<i64> = seeds.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).collect();
+    let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(seeds.iter()).collect();
+    println!("{:?}", seeds);
 
     0
 }
@@ -138,5 +140,47 @@ humidity-to-location map:
         let answer: i64 = 35;
 
         assert_eq!(answer, part_one(input_file));
+    }
+
+    #[test]
+    fn test_part_two() {
+        let input_file: &str = "\
+seeds: 79 14 55 13
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4";
+
+        let answer: i64 = 46;
+
+        assert_eq!(answer, part_two(input_file));
     }
 }
