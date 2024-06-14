@@ -16,7 +16,7 @@ struct Map {
 
 #[derive(Debug)]
 struct Block {
-    maps: Vec<Map>
+    maps: Vec<Map>,
 }
 
 fn part_one(input: &str) -> i64 {
@@ -43,7 +43,8 @@ fn part_one(input: &str) -> i64 {
 
     let &answer = positions
         .iter()
-        .min().expect("Couldn't find minimal value!");
+        .min()
+        .expect("Couldn't find minimal value!");
 
     answer
 }
@@ -51,20 +52,33 @@ fn part_one(input: &str) -> i64 {
 fn part_two(input: &str) -> i64 {
     let (seeds_ranges, blocks) = parse(input);
 
-    let seeds: Vec<i64> = seeds_ranges.split_whitespace().map(|n| n.parse::<i64>().expect("Couldn't parse seed!")).step_by(2).collect();
-    let ranges: Vec<i64> = seeds_ranges.split_whitespace().skip(1).map(|n| n.parse::<i64>().expect("Couldn't parse range!")).step_by(2).collect();
+    let seeds: Vec<i64> = seeds_ranges
+        .split_whitespace()
+        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
+        .step_by(2)
+        .collect();
+    let ranges: Vec<i64> = seeds_ranges
+        .split_whitespace()
+        .skip(1)
+        .map(|n| n.parse::<i64>().expect("Couldn't parse range!"))
+        .step_by(2)
+        .collect();
 
     let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(ranges.iter()).collect();
 
     let mut positions: Vec<i64> = Vec::new();
-    
+
     for (mut seed, range) in seeds {
         for block in &blocks {
             for map in &block.maps {
                 if (&map.source < &seed && map.destination > (seed + range)) {
                     let seed = &(seed + (map.destination - map.source));
                 } else if (false) {
-                    println!("Seed out of range!");
+                    /*
+                    if seed < source && seed + range < source -> continue
+                    if seed < source && seed + range > source -> seeds.push (seed, range - (seed + range - source)) && seed = source + (destination - source) && range = seed + range - source
+                    if seed > source && seed + range > destination -> seeds.push
+                    */
                 } else {
                     continue;
                 }
@@ -72,18 +86,19 @@ fn part_two(input: &str) -> i64 {
         }
         positions.push(seed.clone());
     }
- 
+
     0
 }
 
 fn parse(file: &str) -> (&str, Vec<Block>) {
     let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
 
-    let lines: Vec<&str> = maps.split("\n\n")
+    let lines: Vec<&str> = maps
+        .split("\n\n")
         .map(|l| {
-            let (_, maps) = l
-                .split_once(":")
-                .expect("Couldn't split maps!"); maps })
+            let (_, maps) = l.split_once(":").expect("Couldn't split maps!");
+            maps
+        })
         .collect();
 
     let seeds: &str = &seeds[7..];
@@ -99,16 +114,14 @@ fn parse(file: &str) -> (&str, Vec<Block>) {
                 .map(|n| n.parse::<i64>().expect("Couldn't parse map!"))
                 .collect();
 
-            maps.push(Map{
+            maps.push(Map {
                 source: locations[1],
                 destination: locations[0],
                 range: locations[2],
             })
         }
 
-        blocks.push(Block {
-            maps,
-        });
+        blocks.push(Block { maps });
     }
 
     (seeds, blocks)
