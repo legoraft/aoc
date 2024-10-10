@@ -51,6 +51,7 @@ fn part_one(input: &str) -> i64 {
 
 fn part_two(input: &str) -> i64 {
     let (seeds_ranges, blocks) = parse(input);
+    let blocks: Vec<&Block> = blocks.iter().rev().collect();
 
     let seeds: Vec<i64> = seeds_ranges
         .split_whitespace()
@@ -66,25 +67,24 @@ fn part_two(input: &str) -> i64 {
 
     let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(ranges.iter()).collect();
 
-    let mut positions: Vec<i64> = Vec::new();
-
-    for (mut seed, range) in seeds {
+    for i in 0.. {
+        let mut seed = i;
+        
         for block in &blocks {
             for map in &block.maps {
-                if (&map.source < &seed && map.destination > (seed + range)) {
-                    let seed = &(seed + (map.destination - map.source));
-                } else if (false) {
-                    /*
-                    if seed < source && seed + range < source -> continue
-                    if seed < source && seed + range > source -> seeds.push (seed, range - (seed + range - source)) && seed = source + (destination - source) && range = seed + range - source
-                    if seed > source && seed + range > destination -> seeds.push
-                    */
-                } else {
-                    continue;
+                if (map.destination..map.destination + map.range).contains(&seed) {
+                    seed = &seed - (map.destination - map.source);
+                    break;
                 }
             }
         }
-        positions.push(seed.clone());
+        
+        for (source, range) in &seeds {
+            let range = *source..&(*source + *range - 1);
+            if range.contains(&&seed) {
+                return i;
+            }
+        }
     }
 
     0
