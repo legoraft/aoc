@@ -73,6 +73,7 @@ fn part_two(input: &str) -> i64 {
 }
 
 fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
+    // Replace all unnecessary text
     let file = file
         .replace("seeds: ", "")
         .replace("seed-to-soil map:", "")
@@ -83,13 +84,16 @@ fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
         .replace("temperature-to-humidity map:", "")
         .replace("humidity-to-location map:", "");
     
+    // Seeds are separated by a newline, so splitting there will give the seed line.
     let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
     
+    // The seeds get parsed, after which all the map lines are collected.
     let seeds: Vec<i64> = seeds.split_whitespace().map(|n| n.parse().expect("Couldn't parse seed!")).collect();
     let maps: Vec<Vec<&str>> = maps.split("\n\n").map(|m| m.lines().filter(|l| l != &"").collect()).collect();
     
     let mut blocks: Vec<Vec<Map>> = Vec::new();
 
+    // For every block, we parse every map into a Map struct and push this to the blocks vec.
     for block in maps {
         let mut map = Vec::new();
         
