@@ -1,5 +1,22 @@
 fn main() {
-    println!("Hello, world!");
+    let input_file = include_str!("../../inputs/day_06.txt");
+
+    let answer_one = part_one(input_file);
+    let answer_two = part_two(input_file);
+
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
+}
+
+fn part_one(input: &str) -> i64 {
+    0
+}
+
+fn part_two(input: &str) -> i64 {
+    0
+}
+
+fn parse(file: &str) {
+    
 }
 
 #[cfg(test)]
