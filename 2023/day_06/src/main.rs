@@ -8,12 +8,40 @@ fn main() {
 }
 
 fn part_one(input: &str) -> i64 {
-    parse(input);
+    let races = parse(input);
+    let mut answer = 1;
     
-    0
+    for (time, record) in races {
+        let mut possibility = 0;
+        
+        for press in 0..time {
+            let distance = (time - press) * press;
+            
+            if distance > record {
+                possibility += 1;
+            }
+        }
+
+        answer *= possibility;
+    }
+    
+    answer
 }
 
 fn part_two(input: &str) -> i64 {
+    let races = parse(input);
+    
+    let mut time: String = String::new();
+    let mut record: String = String::new();
+    
+    for (times, records) in races {
+        time.push_str(&times.to_string());
+        record.push_str(&records.to_string());
+    }
+    
+    dbg!(time);
+    dbg!(record)
+    
     0
 }
 
