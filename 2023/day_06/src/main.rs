@@ -12,17 +12,15 @@ fn part_one(input: &str) -> i64 {
     let mut answer = 1;
     
     for (time, record) in races {
-        let mut possibility = 0;
-        
         for press in 0..time {
             let distance = (time - press) * press;
             
             if distance > record {
-                possibility += 1;
+                let possibility = (time - press * 2) + 1;
+                answer *= possibility;
+                break;
             }
         }
-
-        answer *= possibility;
     }
     
     answer
@@ -48,7 +46,8 @@ fn part_two(input: &str) -> i64 {
         let distance = (time - press) * press;
         
         if distance > record {
-            possibility += 1;
+            possibility = (time - press * 2) + 1;
+            break;
         }
     }
     
