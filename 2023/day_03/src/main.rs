@@ -142,10 +142,8 @@ fn parse(file: &str) -> Vec<Vec<char>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn test_part_one() {
-        let input_file: &str = "\
+    
+    const INPUT: &str = "\
 467..114..
 ...*......
 ..35..633.
@@ -156,28 +154,18 @@ mod tests {
 ......755.
 ...$.*....
 .664.598..";
-
+    
+    #[test]
+    fn test_part_one() {
         let answer: i64 = 4361;
 
-        assert_eq!(answer, part_one(input_file));
+        assert_eq!(answer, part_one(INPUT));
     }
 
     #[test]
     fn test_part_two() {
-        let input_file: &str = "\
-467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598..";
-
         let answer: i64 = 467835;
 
-        assert_eq!(answer, part_two(input_file));
+        assert_eq!(answer, part_two(INPUT));
     }
 }

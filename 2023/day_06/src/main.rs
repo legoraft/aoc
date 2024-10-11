@@ -75,25 +75,21 @@ fn parse(file: &str) -> Vec<(i64, i64)> {
 mod tests {
     use super::*;
     
-    #[test]
-    fn test_part_one() {
-        let input_file: &str = "\
+    const INPUT: &str = "\
 Time:      7  15   30
 Distance:  9  40  200";
-        
+    
+    #[test]
+    fn test_part_one() {
         let answer: i64 = 288;
 
-        assert_eq!(answer, part_one(input_file));
+        assert_eq!(answer, part_one(INPUT));
     }
     
     #[test]
     fn test_part_two() {
-        let input_file: &str = "\
-Time:      7  15   30
-Distance:  9  40  200";
-        
         let answer: i64 = 71503;
 
-        assert_eq!(answer, part_two(input_file));
+        assert_eq!(answer, part_two(INPUT));
     }
 }
