@@ -34,3 +34,26 @@ We iterate over every block, after which we separate every line to create a `Map
 
 For the first part, we need to find the lowest location number for the seeds given. After parsing the file in a bit of a simpler data structure, we can solve for part one.
 
+We just create a vector for the positions, in which we can find the lowest number easily.
+
+Now we iterate over every seed and apply all the necessary transforms. This is done easily with the following code block:
+
+```rust,no_run,noplayground
+{{#include ../../../2023/day_05/src/main.rs:22:33}}
+```
+
+We iterate over every seed and iterate over every block of maps within the seed. After that, we iterate over all the map lines to check if the seed falls within the source range.
+
+We can find the next seed value by using the following equation: `seed = seed + (map.destination - map.source`. This is what we do if a seed falls within the source range of a map line. After this we break out of the block, because the seed can be counted within the same map block, but that can't be done due to the rules.
+
+After we've done all these transformations, we push the final destination to the `positions` vec. After we've iterated over every seed, we can use the following to find the smallest destination.
+
+```rust,no_run,noplayground
+{{#include ../../../2023/day_05/src/main.rs:35:39}}
+```
+
+This iterates over every position and finds the smallest value. This is finally returned.
+
+## Part two
+
+
