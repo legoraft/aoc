@@ -14,18 +14,8 @@ struct Map {
     range: i64,
 }
 
-#[derive(Debug)]
-struct Block {
-    maps: Vec<Map>,
-}
-
 fn part_one(input: &str) -> i64 {
     let (seeds, blocks) = parse(input);
-
-    let seeds: Vec<i64> = seeds
-        .split_whitespace()
-        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
-        .collect();
 
     let mut positions: Vec<i64> = Vec::new();
 
@@ -53,78 +43,38 @@ fn part_two(input: &str) -> i64 {
     let (seeds_ranges, blocks) = parse(input);
     let blocks: Vec<&Block> = blocks.iter().rev().collect();
 
-    let seeds: Vec<i64> = seeds_ranges
-        .split_whitespace()
-        .map(|n| n.parse::<i64>().expect("Couldn't parse seed!"))
-        .step_by(2)
-        .collect();
-    let ranges: Vec<i64> = seeds_ranges
-        .split_whitespace()
-        .skip(1)
-        .map(|n| n.parse::<i64>().expect("Couldn't parse range!"))
-        .step_by(2)
-        .collect();
-
-    let seeds: Vec<(&i64, &i64)> = seeds.iter().zip(ranges.iter()).collect();
-
-    for i in 0.. {
-        let mut seed = i;
-        
-        for block in &blocks {
-            for map in &block.maps {
-                if (map.destination..map.destination + map.range).contains(&seed) {
-                    seed = &seed - (map.destination - map.source);
-                    break;
-                }
-            }
-        }
-        
-        for (source, range) in &seeds {
-            let range = *source..&(*source + *range - 1);
-            if range.contains(&&seed) {
-                return i;
-            }
-        }
-    }
-
     0
 }
 
-fn parse(file: &str) -> (&str, Vec<Block>) {
+fn parse(file: &str) -> (Vec<i64>, Vec<Map>) {
+    let file = file
+        .replace("seeds: ", "")
+        .replace("seed-to-soil map:", "")
+        .replace("soil-to-fertilizer map:", "")
+        .replace("fertilizer-to-water map:", "")
+        .replace("water-to-light map:", "")
+        .replace("light-to-temperature map:", "")
+        .replace("temperature-to-humidity map:", "")
+        .replace("humidity-to-location map:", "");
+    
     let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
+    
+    let seeds: Vec<i64> = seeds.split_whitespace().map(|n| n.parse().expect("Couldn't parse seed!")).collect();
+    let mut map: Vec<Map> = Vec::new();
 
-    let lines: Vec<&str> = maps
-        .split("\n\n")
-        .map(|l| {
-            let (_, maps) = l.split_once(":").expect("Couldn't split maps!");
-            maps
-        })
-        .collect();
-
-    let seeds: &str = &seeds[7..];
-
-    let mut blocks: Vec<Block> = Vec::new();
+    let lines: Vec<&str> = maps.lines().filter(|l| l != &"").collect();
 
     for line in lines {
-        let mut maps: Vec<Map> = Vec::new();
-
-        for locations in line.trim().lines() {
-            let locations: Vec<i64> = locations
-                .split_whitespace()
-                .map(|n| n.parse::<i64>().expect("Couldn't parse map!"))
-                .collect();
-
-            maps.push(Map {
-                source: locations[1],
-                destination: locations[0],
-                range: locations[2],
-            })
-        }
-
-        blocks.push(Block { maps });
+        let categories: Vec<i64> = line.split_whitespace().map(|n| n.parse().expect("Couldn't parse category")).collect();
+        
+        map.push(Map {
+            source: categories[1],
+            destination: categories[0],
+            range: categories[2],
+        })
     }
 
-    (seeds, blocks)
+    (seeds, map)
 }
 
 #[cfg(test)]
