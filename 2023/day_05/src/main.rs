@@ -18,16 +18,17 @@ fn part_one(input: &str) -> i64 {
     let (seeds, blocks) = parse(input);
 
     let mut positions: Vec<i64> = Vec::new();
-
+    
     for mut seed in seeds {
         for block in &blocks {
-            for map in &block.maps {
+            for map in block {
                 if (map.source..map.source + map.range).contains(&seed) {
                     seed = seed + (map.destination - map.source);
                     break;
                 }
             }
         }
+        
         positions.push(seed);
     }
 
@@ -40,13 +41,10 @@ fn part_one(input: &str) -> i64 {
 }
 
 fn part_two(input: &str) -> i64 {
-    let (seeds_ranges, blocks) = parse(input);
-    let blocks: Vec<&Block> = blocks.iter().rev().collect();
 
-    0
 }
 
-fn parse(file: &str) -> (Vec<i64>, Vec<Map>) {
+fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
     let file = file
         .replace("seeds: ", "")
         .replace("seed-to-soil map:", "")
@@ -60,21 +58,27 @@ fn parse(file: &str) -> (Vec<i64>, Vec<Map>) {
     let (seeds, maps) = file.split_once("\n\n").expect("Couldn't split seeds!");
     
     let seeds: Vec<i64> = seeds.split_whitespace().map(|n| n.parse().expect("Couldn't parse seed!")).collect();
-    let mut map: Vec<Map> = Vec::new();
+    let maps: Vec<Vec<&str>> = maps.split("\n\n").map(|m| m.lines().filter(|l| l != &"").collect()).collect();
+    
+    let mut blocks: Vec<Vec<Map>> = Vec::new();
 
-    let lines: Vec<&str> = maps.lines().filter(|l| l != &"").collect();
-
-    for line in lines {
-        let categories: Vec<i64> = line.split_whitespace().map(|n| n.parse().expect("Couldn't parse category")).collect();
+    for block in maps {
+        let mut map = Vec::new();
         
-        map.push(Map {
-            source: categories[1],
-            destination: categories[0],
-            range: categories[2],
-        })
+        for line in block {
+            let categories: Vec<i64> = line.split_whitespace().map(|n| n.parse().expect("Couldn't parse maps!")).collect();
+            
+            map.push(Map {
+                source: categories[1],
+                destination: categories[0],
+                range: categories[2],
+            });
+        }
+        
+        blocks.push(map);
     }
 
-    (seeds, map)
+    (seeds, blocks)
 }
 
 #[cfg(test)]
