@@ -7,3 +7,6 @@ title = "Advent of code solutions"
 
 [output.html]
 site-url = "/aoc/"
+
+[output.html.playground]
+editable = true

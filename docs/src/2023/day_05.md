@@ -90,4 +90,6 @@ We create a range of numbers from the source to the source and the range added u
 
 The most difficult part of this day was definitely the second part. The algorithm I've used also isn't the most efficient, but finds the answer in 6 seconds which is relatively good.
 
-Parsing was a bit of a challenge this day, but after simplifying it a bit, solving the parts became a lot easier.
+Parsing was a bit of a challenge this day, but after simplifying it a bit, solving the parts became a lot easier. If you'd like to mess around with the code I made, take a look at the following code block:
+
+{{#playground tests/day_05.rs editable}}
