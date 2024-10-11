@@ -39,10 +39,20 @@ fn part_two(input: &str) -> i64 {
         record.push_str(&records.to_string());
     }
     
-    dbg!(time);
-    dbg!(record)
+    let mut possibility = 0;
     
-    0
+    let time: i64 = time.parse().expect("Couldn't parse time!");
+    let record: i64 = record.parse().expect("Couldn't parse time!");
+    
+    for press in 0..time {
+        let distance = (time - press) * press;
+        
+        if distance > record {
+            possibility += 1;
+        }
+    }
+    
+    possibility
 }
 
 fn parse(file: &str) -> Vec<(i64, i64)> {
@@ -75,5 +85,16 @@ Distance:  9  40  200";
         let answer: i64 = 288;
 
         assert_eq!(answer, part_one(input_file));
+    }
+    
+    #[test]
+    fn test_part_two() {
+        let input_file: &str = "\
+Time:      7  15   30
+Distance:  9  40  200";
+        
+        let answer: i64 = 71503;
+
+        assert_eq!(answer, part_two(input_file));
     }
 }
