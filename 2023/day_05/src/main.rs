@@ -41,7 +41,35 @@ fn part_one(input: &str) -> i64 {
 }
 
 fn part_two(input: &str) -> i64 {
+    let (seeds, blocks) = parse(input);
+    
+    let ranges: Vec<&i64> = seeds.iter().skip(1).step_by(2).collect();
+    let seeds: Vec<&i64> = seeds.iter().step_by(2).collect();
+    
+    let seeds: Vec<(&i64, &i64)> = seeds.into_iter().zip(ranges.into_iter()).collect();
+    let blocks: Vec<Vec<Map>> = blocks.into_iter().rev().collect();
 
+    for i in 0.. {
+        let mut seed = i;
+        
+        for block in &blocks {
+            for map in block {
+                if (map.destination..map.destination + map.range).contains(&seed) {
+                    seed = &seed - (map.destination - map.source);
+                    break;
+                }
+            }
+        }
+        
+        for (source, range) in &seeds {
+            let range = *source..&(*source + *range - 1);
+            if range.contains(&&seed) {
+                return i;
+            }
+        }
+    }
+    
+    0
 }
 
 fn parse(file: &str) -> (Vec<i64>, Vec<Vec<Map>>) {
