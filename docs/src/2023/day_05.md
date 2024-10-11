@@ -44,9 +44,9 @@ Now we iterate over every seed and apply all the necessary transforms. This is d
 
 We iterate over every seed and iterate over every block of maps within the seed. After that, we iterate over all the map lines to check if the seed falls within the source range.
 
-We can find the next seed value by using the following equation: `seed = seed + (map.destination - map.source`. This is what we do if a seed falls within the source range of a map line. After this we break out of the block, because the seed can be counted within the same map block, but that can't be done due to the rules.
+We can find the next seed value by using the following equation: `seed = seed + (map.destination - map.source)`. This is what we do if a seed falls within the source range of a map line. After this we break out of the block, because the seed can be counted within the same map block, but that can't be done due to the rules.
 
-After we've done all these transformations, we push the final destination to the `positions` vec. After we've iterated over every seed, we can use the following to find the smallest destination.
+After we've done all these transformations, we push the final location to the `positions` vec. After we've iterated over every seed, we can use the following to find the smallest location.
 
 ```rust,no_run,noplayground
 {{#include ../../../2023/day_05/src/main.rs:35:39}}
@@ -56,4 +56,38 @@ This iterates over every position and finds the smallest value. This is finally 
 
 ## Part two
 
+For part two, it seems that the seeds are actually ranges of seeds. We need to find the smallest location again.
 
+Because iterating over every range of seeds would be insane and take too much time, we need to find a different approach. The seeds we would need to iterate over would be many millions, but the smallest seed would probably be a few million.
+
+This means we can iterate over the final location and just reverse search for the seed. To start with this, we need to get all the seed ranges and reverse the blocks to reverse search for the seed.
+
+```rust,no_run,noplayground
+{{#include ../../../2023/day_05/src/main.rs:46:50}}
+```
+
+We first split the seeds into ranges and seeds. This is done by stepping every 2 items, so we get every odd item for the ranges. This is done with the `.step_by(2)` function. We do the same thing for the ranges, but skip the first item and get every even item for the seeds.
+
+Next, we create a vector of tuples with `Vec<(&i64, &i64)>`. Within this, the first number is the seed and the second is the range. This is done by using `.zip()`. The item that's used as an argument, will be the second item in the tuple. After collecting this we have a vector of tuples.
+
+After this, we iterate over every location from `0`.
+
+```rust,no_run,noplayground
+{{#include ../../../2023/day_05/src/main.rs:52:70}}
+```
+
+This starts by setting a seed by using `i`. After this, we iterate over all the blocks and reverse the equation used for converting from a seed to a location. This is done by using `seed = &seed - (map.destination - map.source)` when a destination range contains the seed. After this we still need to break, to prevent converting double.
+
+After we've gotten the final seed, we need to check if it falls within the seed sources. This is done as follows:
+
+```rust,no_run,noplayground
+{{#include ../../../2023/day_05/src/main.rs:64:69}}
+```
+
+We create a range of numbers from the source to the source and the range added up. After this we can check if the range contains our found seed and if this is true, we return `i`. This function can run indefinitely, but because the program needs to find an answer, this isn't as bad.
+
+## Conclusion
+
+The most difficult part of this day was definitely the second part. The algorithm I've used also isn't the most efficient, but finds the answer in 6 seconds which is relatively good.
+
+Parsing was a bit of a challenge this day, but after simplifying it a bit, solving the parts became a lot easier.
