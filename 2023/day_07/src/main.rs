@@ -142,6 +142,6 @@ QQQJA 483";
     fn test_part_two() {
         let answer: i64 = 5905;
 
-        assert_eq!(answer, part_one(INPUT));
+        assert_eq!(answer, part_two(INPUT));
     }
 }
