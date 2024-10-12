@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     let input_file = include_str!("../../inputs/day_07.txt");
 
@@ -10,13 +12,24 @@ fn main() {
 #[derive(Debug)]
 struct Hand {
     cards: String,
-    rank: i64,
+    score: i64,
     bid: i64,
 }
 
 fn part_one(file: &str) -> i64 {
     let hands = parse(file);
-    dbg!(&hands);
+    
+    for hand in hands {
+        let mut score: HashMap<char, i64> = HashMap::new();
+        
+        for card in hand.cards.chars() {
+            score.entry(card)
+                .and_modify(|count| *count += 1)
+                .or_insert(1);
+        }
+        
+        dbg!(&score);
+    }
     
     0
 }
@@ -35,7 +48,7 @@ fn parse(file: &str) -> Vec<Hand> {
         
         games.push(Hand {
             cards,
-            rank: 0,
+            score: 0,
             bid,
         });
     }
