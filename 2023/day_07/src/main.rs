@@ -12,14 +12,14 @@ fn main() {
 #[derive(Debug)]
 struct Hand {
     cards: String,
-    score: i64,
+    score: [i64; 2],
     bid: i64,
 }
 
 fn part_one(file: &str) -> i64 {
     let hands = parse(file);
     
-    for hand in hands {
+    for mut hand in hands {
         let mut score: HashMap<char, i64> = HashMap::new();
         
         for card in hand.cards.chars() {
@@ -28,7 +28,13 @@ fn part_one(file: &str) -> i64 {
                 .or_insert(1);
         }
         
-        dbg!(&score);
+        let mut values: Vec<i64> = score.values().cloned().collect();
+        values.sort();
+        values.reverse();
+        values.push(0);
+        
+        let score: [i64; 2] = [values[0], values[1]];
+        hand.score = score;
     }
     
     0
@@ -48,7 +54,7 @@ fn parse(file: &str) -> Vec<Hand> {
         
         games.push(Hand {
             cards,
-            score: 0,
+            score: [0, 0],
             bid,
         });
     }
