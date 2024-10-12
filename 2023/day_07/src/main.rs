@@ -7,7 +7,17 @@ fn main() {
     println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
+#[derive(Debug)]
+struct Hand {
+    cards: String,
+    rank: i64,
+    bid: i64,
+}
+
 fn part_one(file: &str) -> i64 {
+    let hands = parse(file);
+    dbg!(&hands);
+    
     0
 }
 
@@ -15,8 +25,22 @@ fn part_two(file: &str) -> i64 {
     0
 }
 
-fn parse(file: &str) {
+fn parse(file: &str) -> Vec<Hand> {
+    let hands: Vec<(&str, &str)> = file.lines().map(|l| l.split_once(" ").expect("Couldn't split line!")).collect();
+    let mut games: Vec<Hand> = Vec::new();
     
+    for (cards, bid) in hands {
+        let bid: i64 = bid.parse().expect("Couldn't parse bid!");
+        let cards: String = cards.to_string();
+        
+        games.push(Hand {
+            cards,
+            rank: 0,
+            bid,
+        });
+    }
+    
+    games
 }
 
 #[cfg(test)]
