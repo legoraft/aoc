@@ -46,4 +46,10 @@ After that, we parse the time and record and just use the same algorithm as in t
 
 ## Conclusion
 
+Today wasn't a really difficult challenge. The algorithm I created where you stop the calculations once you break a record was about 60% faster than testing every possible outcome, so that was a nice optimization.
 
+Parsing also wasn't that difficult, so all things considered it was a somewhat easy day. If you want to play around with the code from day 6, take a look at this code block:
+
+```rust,editable
+{{ #include tests/day_06.rs}}
+```
