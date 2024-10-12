@@ -11,18 +11,57 @@ fn main() {
 
 #[derive(Debug)]
 struct Hand {
-    cards: String,
+    cards: Vec<Card>,
     score: [i64; 2],
     bid: i64,
 }
 
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+enum Card {
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
+    Jack,
+    Queen,
+    King,
+    Ace,
+}
+
+impl Card {
+    fn from_char(card: char) -> Self {
+        match card {
+            '2' => Self::Two,
+            '3' => Self::Three,
+            '4' => Self::Four,
+            '5' => Self::Five,
+            '6' => Self::Six,
+            '7' => Self::Seven,
+            '8' => Self::Eight,
+            '9' => Self::Nine,
+            'T' => Self::Ten,
+            'J' => Self::Jack,
+            'Q' => Self::Queen,
+            'K' => Self::King,
+            'A' => Self::Ace,
+            _ => panic!("That shouldn't be possible!")
+        }
+    }
+}
+
 fn part_one(file: &str) -> i64 {
-    let hands = parse(file);
+    let games = parse(file);
+    let mut hands: Vec<Hand> = Vec::new();
     
-    for mut hand in hands {
-        let mut score: HashMap<char, i64> = HashMap::new();
+    for mut game in games {
+        let mut score: HashMap<&Card, i64> = HashMap::new();
         
-        for card in hand.cards.chars() {
+        for card in &game.cards {
             score.entry(card)
                 .and_modify(|count| *count += 1)
                 .or_insert(1);
@@ -34,10 +73,29 @@ fn part_one(file: &str) -> i64 {
         values.push(0);
         
         let score: [i64; 2] = [values[0], values[1]];
-        hand.score = score;
+        game.score = score;
+        
+        hands.push(game);
     }
     
-    0
+    hands.sort_by(|a, b| {
+        let score_cmp = a.score.cmp(&b.score);
+        
+        if score_cmp == std::cmp::Ordering::Equal {
+            a.cards.cmp(&b.cards)
+        } else {
+            score_cmp
+        }
+    });
+    
+    let mut answer = 0;
+    
+    for (rank, hand) in hands.iter().enumerate() {
+        let score = hand.bid * (rank as i64 + 1);
+        answer += score;
+    }
+    
+    answer
 }
 
 fn part_two(file: &str) -> i64 {
@@ -50,7 +108,7 @@ fn parse(file: &str) -> Vec<Hand> {
     
     for (cards, bid) in hands {
         let bid: i64 = bid.parse().expect("Couldn't parse bid!");
-        let cards: String = cards.to_string();
+        let cards: Vec<Card> = cards.chars().map(|c| Card::from_char(c)).collect();
         
         games.push(Hand {
             cards,
