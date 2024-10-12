@@ -4,15 +4,46 @@ fn main() {
     let answer_one = part_one(input_file);
 //    let answer_two = part_two(input_file);
 
-    println!("Part one: {}\nPart two: {}", answer_one, /* answer_two */);
+    println!("Part one: {}\nPart two: ", answer_one, /* answer_two */);
+}
+
+#[derive(Debug)]
+struct Node {
+    id: String,
+    map: [String; 2],
 }
 
 fn part_one(file: &str) -> i64 {
+    let (instructions, nodes) = parse(file);
+    let mut steps = 0;
+    
+    for instruction in instructions {
+        
+    }
+    
     0
 }
 
-fn parse(file: &str) {
+fn parse(file: &str) -> (Vec<i64>, Vec<Node>) {
+    let (instructions, elements) = file.split_once("\n\n").expect("Couldn't split off instructions!");
     
+    let instructions: Vec<i64> = instructions.replace('L', "0").replace('R', "1").chars().map(|c| c.to_digit(10).expect("Couldn't parse character!") as i64).collect();
+    
+    let mut nodes: Vec<Node> = Vec::new();
+    
+    for element in elements.lines() {
+        let (id, map) = element.split_once(" = ").expect("Couldn't split id!");
+        let map: Vec<String> = map.split(", ").map(|m| m.replace(['(', ')'], "").to_string()).collect();
+        let map: [String; 2] = [map[0].to_string(), map[1].to_string()];
+        
+        // Hashmap
+        nodes.push(Node {
+            id: id.to_string(),
+            map,
+        });
+    }
+    
+    (instructions, nodes)
 }
 
 #[cfg(test)]
