@@ -4,9 +4,9 @@ fn main() {
     let input_file = include_str!("../../inputs/day_08.txt");
 
     let answer_one = part_one(input_file);
-//    let answer_two = part_two(input_file);
+    let answer_two = part_two(input_file);
 
-    println!("Part one: {}\nPart two: ", answer_one, /* answer_two */);
+    println!("Part one: {}\nPart two: {}", answer_one, answer_two);
 }
 
 fn part_one(file: &str) -> i64 {
@@ -26,17 +26,26 @@ fn part_one(file: &str) -> i64 {
 }
 
 fn part_two(file: &str) -> i64 {
-    let (instructions, paths) = parse(file);
+    let (instructions, nodes) = parse(file);
     
-    // nodes = [11A, 22A, ..];
-    // 
-    // while nodes.iter().all(|n| n.chars.last() != 'Z') {
-    //   for instruction in instructions {
-    //     for (index, node) in node.iter().enumerate() {
-    //       
-    //     }
-    //   }
-    // }
+    let start_nodes: Vec<&str> = nodes.keys().filter(|k| k.ends_with('A')).cloned().collect();
+    let mut ghost_steps: Vec<i64> = Vec::new();
+    
+    for mut node in start_nodes {
+        let mut steps = 0;
+        
+        while !node.ends_with('Z') {
+            for instruction in &instructions {
+                let elements = &nodes[node];
+                node = &elements[*instruction as usize];
+                steps += 1;
+            }
+        }
+        
+        ghost_steps.push(steps);
+    }
+    
+    println!("{:?}", ghost_steps);
     
     0
 }
