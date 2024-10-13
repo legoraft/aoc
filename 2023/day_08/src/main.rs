@@ -31,16 +31,19 @@ fn part_one(file: &str) -> i64 {
     0
 }
 
-fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [&str; 2]>) {
+fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [String; 2]>) {
     let (instructions, elements) = file.split_once("\n\n").expect("Couldn't split off instructions!");
     
     let instructions: Vec<i64> = instructions.replace('L', "0").replace('R', "1").chars().map(|c| c.to_digit(10).expect("Couldn't parse character!") as i64).collect();
     
-    let mut nodes: HashMap<&str, [&str; 2]> = HashMap::new();
+    let mut nodes: HashMap<&str, [String; 2]> = HashMap::new();
     
     for element in elements.lines() {
         let (id, map) = element.split_once(" = ").expect("Couldn't split id!");
-        let map: Vec<&str> = map.split(", ").map(|m| m.replace(")", "").replace("(", "")).collect();
+        
+        let map = map.replace(['(', ')'], "");
+        let map: (&str, &str) = map.split_once(", ").expect("Couldn't split map!");
+        let map: [String; 2] = [map.0.to_string(), map.1.to_string()];
         
         nodes.insert(id, map);
     }
