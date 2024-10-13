@@ -9,12 +9,6 @@ fn main() {
     println!("Part one: {}\nPart two: ", answer_one, /* answer_two */);
 }
 
-#[derive(Debug)]
-struct Node {
-    id: String,
-    map: [String; 2],
-}
-
 fn part_one(file: &str) -> i64 {
     let (instructions, nodes) = parse(file);
     let mut steps = 0;
