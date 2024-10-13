@@ -16,10 +16,6 @@ fn part_one(file: &str) -> i64 {
     
     while node != "ZZZ" {
         for instruction in &instructions {
-            if node == "ZZZ" {
-                break;
-            }
-            
             let elements = &nodes[node];
             node = &elements[*instruction as usize];
             steps += 1;
@@ -27,6 +23,22 @@ fn part_one(file: &str) -> i64 {
     }
     
     steps
+}
+
+fn part_two(file: &str) -> i64 {
+    let (instructions, paths) = parse(file);
+    
+    // nodes = [11A, 22A, ..];
+    // 
+    // while nodes.iter().all(|n| n.chars.last() != 'Z') {
+    //   for instruction in instructions {
+    //     for (index, node) in node.iter().enumerate() {
+    //       
+    //     }
+    //   }
+    // }
+    
+    0
 }
 
 fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [String; 2]>) {
@@ -53,17 +65,36 @@ fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [String; 2]>) {
 mod tests {
     use super::*;
     
-    const INPUT: &str = "\
+    #[test]
+    fn test_part_one() {
+        let input: &str = "\
 LLR
 
 AAA = (BBB, BBB)
 BBB = (AAA, ZZZ)
 ZZZ = (ZZZ, ZZZ)";
-    
-    #[test]
-    fn test_part_one() {
+        
         let answer: i64 = 6;
 
-        assert_eq!(answer, part_one(INPUT));
+        assert_eq!(answer, part_one(input));
+    }
+    
+    #[test]
+    fn test_part_two() {
+        let input: &str = "\
+LR
+
+11A = (11B, XXX)
+11B = (XXX, 11Z)
+11Z = (11B, XXX)
+22A = (22B, XXX)
+22B = (22C, 22C)
+22C = (22Z, 22Z)
+22Z = (22B, 22B)
+XXX = (XXX, XXX)";
+        
+        let answer: i64 = 6;
+
+        assert_eq!(answer, part_two(input));
     }
 }
