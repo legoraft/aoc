@@ -20,15 +20,19 @@ fn part_one(file: &str) -> i64 {
     let mut steps = 0;
     let mut node: &str = "AAA";
     
-    for instruction in instructions {
-        if node == "ZZZ" {
-            break;
+    while node != "ZZZ" {
+        for instruction in &instructions {
+            if node == "ZZZ" {
+                break;
+            }
+            
+            let elements = &nodes[node];
+            node = &elements[*instruction as usize];
+            steps += 1;
         }
-        
-        let elements = nodes[node];
     }
     
-    0
+    steps
 }
 
 fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [String; 2]>) {
