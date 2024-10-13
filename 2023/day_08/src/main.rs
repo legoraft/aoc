@@ -45,9 +45,26 @@ fn part_two(file: &str) -> i64 {
         ghost_steps.push(steps);
     }
     
-    println!("{:?}", ghost_steps);
+    let result = lcm(&ghost_steps);
     
-    0
+    result
+}
+
+fn lcm(nums: &[i64]) -> i64 {
+    if nums.len() == 1 {
+        return nums[0];
+    }
+    
+    let a = nums[0];
+    let b = lcm(&nums[1..]);
+    a * b / gcd(a, b)
+}
+
+fn gcd(a: i64, b: i64) -> i64 {
+    if b == 0 {
+        return a;
+    }
+    gcd(b, a % b)
 }
 
 fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [String; 2]>) {
