@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     let input_file = include_str!("../../inputs/day_08.txt");
 
@@ -16,31 +18,31 @@ struct Node {
 fn part_one(file: &str) -> i64 {
     let (instructions, nodes) = parse(file);
     let mut steps = 0;
+    let mut node: &str = "AAA";
     
     for instruction in instructions {
+        if node == "ZZZ" {
+            break;
+        }
         
+        let elements = nodes[node];
     }
     
     0
 }
 
-fn parse(file: &str) -> (Vec<i64>, Vec<Node>) {
+fn parse(file: &str) -> (Vec<i64>, HashMap<&str, [&str; 2]>) {
     let (instructions, elements) = file.split_once("\n\n").expect("Couldn't split off instructions!");
     
     let instructions: Vec<i64> = instructions.replace('L', "0").replace('R', "1").chars().map(|c| c.to_digit(10).expect("Couldn't parse character!") as i64).collect();
     
-    let mut nodes: Vec<Node> = Vec::new();
+    let mut nodes: HashMap<&str, [&str; 2]> = HashMap::new();
     
     for element in elements.lines() {
         let (id, map) = element.split_once(" = ").expect("Couldn't split id!");
-        let map: Vec<String> = map.split(", ").map(|m| m.replace(['(', ')'], "").to_string()).collect();
-        let map: [String; 2] = [map[0].to_string(), map[1].to_string()];
+        let map: Vec<&str> = map.split(", ").map(|m| m.replace(")", "").replace("(", "")).collect();
         
-        // Hashmap
-        nodes.push(Node {
-            id: id.to_string(),
-            map,
-        });
+        nodes.insert(id, map);
     }
     
     (instructions, nodes)
