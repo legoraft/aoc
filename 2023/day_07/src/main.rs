@@ -117,10 +117,12 @@ fn part_two(file: &str) -> i64 {
             score[&Card::Joker]
         } else { 0 };
         
+        score.remove(&Card::Joker);
+        
         let mut values: Vec<i64> = score.values().cloned().collect();
         values.sort();
         values.reverse();
-        values.push(0);
+        values.extend_from_slice(&[0, 0]);
         
         let score: [i64; 2] = [values[0] + jokers, values[1]];
         game.score = score;
