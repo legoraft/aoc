@@ -10,3 +10,4 @@
 - [Day four](./2023/day_04.md)
 - [Day five](./2023/day_05.md)
 - [Day six](./2023/day_06.md)
+- [Day seven](./2023/day_07.md)
