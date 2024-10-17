@@ -35,3 +35,5 @@ We parse all the data in the following function:
 For every hand, we parse the bid to an `i64`, all the cards get split into `.chars()` and gets parsed into a `Card` type. After this, we push the `Hand` struct to the games vec. We set the score to 0 to modify later.
 
 ## Part one
+
+In part one, we just need to build a simple poker parser.
