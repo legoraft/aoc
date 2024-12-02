@@ -32,7 +32,11 @@ fn part_two(input: &str) -> i64 {
         let differences: Vec<i64> = report.windows(2).map(|n| n[1] - n[0]).collect();
         
         if differences.iter().all(|&n| n > 0) || differences.iter().all(|&n| n < 0) {
-            if differences.iter().all(|n| n.abs() > 0 && n.abs() < 4) {
+            let mut differences: Vec<i64> = differences.iter().map(|&n| n.abs()).collect();
+            let index_max = differences.iter().position(|x| x == differences.iter().max().unwrap()).unwrap();
+            differences.remove(index_max);
+            
+            if differences.iter().all(|&n| n > 0 || n < 4) {
                 safe_reports += 1;
             }
         }
@@ -72,7 +76,7 @@ mod tests {
     }
     
     #[test]
-    fn test_part_one() {
+    fn test_part_two() {
         let answer = 4;
         
         assert_eq!(answer, part_two(INPUT))
