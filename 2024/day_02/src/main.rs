@@ -70,4 +70,11 @@ mod tests {
         
         assert_eq!(answer, part_one(INPUT))
     }
+    
+    #[test]
+    fn test_part_one() {
+        let answer = 4;
+        
+        assert_eq!(answer, part_two(INPUT))
+    }
 }
